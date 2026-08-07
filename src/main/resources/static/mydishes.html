@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Dishes | Deliver Foods</title>
+
+    <link rel="stylesheet" href="mydishes.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <button class="back-btn"
+                onclick="goBack()">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back
+
+        </button>
+
+        <h1>
+
+            <i class="fa-solid fa-bowl-food"></i>
+
+            My Dishes
+
+        </h1>
+
+    </div>
+
+    <!-- Welcome -->
+
+    <div class="welcome">
+
+        <h2>
+
+            🍽 Selected Food Items
+
+        </h2>
+
+        <p>
+
+            Review your selected dishes before placing your order.
+
+        </p>
+
+    </div>
+
+    <!-- Food List -->
+
+    <div class="food-list">
+
+        <div class="list-header">
+
+            <span>Food Item</span>
+
+            <span>Action</span>
+
+        </div>
+
+        <div id="dishesContainer">
+
+            <h3 class="loading">
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                Loading Dishes...
+
+            </h3>
+
+        </div>
+
+    </div>
+
+    <!-- Place Order -->
+
+    <div class="place-order">
+
+        <button class="place-btn"
+                onclick="placeOrder()">
+
+            <i class="fa-solid fa-bag-shopping"></i>
+
+            Place Order
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ===================================
+        BILL POPUP START
+=================================== -->
+
+<div id="billModal"
+     class="bill-modal">
+
+    <div class="bill-content">
+
+        <!-- Bill Header -->
+
+        <div class="bill-header">
+
+            <h2>
+
+                <i class="fa-solid fa-file-invoice"></i>
+
+                Deliver Foods Bill
+
+            </h2>
+
+            <span class="close-btn"
+                  onclick="closeBill()">
+
+                &times;
+
+            </span>
+
+        </div>
+
+        <!-- Customer Details -->
+
+        <div class="customer-details">
+
+            <p>
+
+                <strong>Customer :</strong>
+
+                <span id="customerName"></span>
+
+            </p>
+
+            <p>
+
+                <strong>Order Date :</strong>
+
+                <span id="orderDate"></span>
+
+            </p>
+
+            <p>
+
+                <strong>Payment :</strong>
+
+                Cash On Delivery
+
+            </p>
+
+        </div>
+		<!-- Bill Table -->
+
+		<div class="bill-table">
+
+		    <div class="bill-head">
+
+		        <span>Food Item</span>
+
+		        <span>Qty</span>
+
+		        <span>Total</span>
+
+		    </div>
+
+		    <div id="billItems">
+
+		        <!-- Bill Items Load Here -->
+
+		    </div>
+
+		</div>
+
+		<!-- Bill Summary -->
+
+		<div class="bill-summary">
+
+		    <div class="summary-row">
+
+		        <span>Subtotal</span>
+
+		        <span id="subtotal">₹0</span>
+
+		    </div>
+
+		    <div class="summary-row">
+
+		        <span>GST (5%)</span>
+
+		        <span id="gst">₹0</span>
+
+		    </div>
+
+		    <div class="summary-row">
+
+		        <span>Delivery Charge</span>
+
+		        <span id="delivery">₹40</span>
+
+		    </div>
+
+		    <hr>
+
+		    <div class="grand-total">
+
+		        <strong>Grand Total</strong>
+
+		        <strong id="grandTotal">
+
+		            ₹0
+
+		        </strong>
+
+		    </div>
+
+		</div>
+
+		<!-- Bill Buttons -->
+
+		<div class="bill-buttons">
+
+		    <button class="cancel-btn"
+		            onclick="closeBill()">
+
+		        Cancel
+
+		    </button>
+
+		    <button class="print-btn"
+		            onclick="window.print()">
+
+		        <i class="fa-solid fa-print"></i>
+
+		        Print Bill
+
+		    </button>
+
+		    <button class="confirm-btn"
+		            onclick="confirmOrder()">
+
+		        <i class="fa-solid fa-circle-check"></i>
+
+		        Confirm Order
+
+		    </button>
+
+		</div>
+		    </div>
+
+		</div>
+
+		<!-- ===========================
+		     BILL POPUP END
+		============================ -->
+
+		<script src="mydishes.js"></script>
+
+		<script>
+
+			window.onload = function () {
+
+			    // Load Cart Items
+			    loadMyDishes();
+
+			    // Customer Name
+			    const userName = sessionStorage.getItem("userName");
+
+			    if (userName) {
+			        document.getElementById("customerName").innerHTML = userName;
+			    }
+
+			    // Order Date
+			    const now = new Date();
+
+			    document.getElementById("orderDate").innerHTML =
+			        now.toLocaleDateString() + " " + now.toLocaleTimeString();
+
+			};
+
+		</script>
+
+		</body>
+
+		</html>

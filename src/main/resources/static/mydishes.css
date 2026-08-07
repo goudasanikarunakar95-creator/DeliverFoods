@@ -1,0 +1,1485 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+/*==============================
+Body
+==============================*/
+
+body{
+
+    min-height:100vh;
+
+    background:linear-gradient(-45deg,#111827,#1f2937,#0f172a,#111827);
+
+    background-size:400% 400%;
+
+    animation:bgMove 15s ease infinite;
+
+}
+
+@keyframes bgMove{
+
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+
+}
+
+/*==============================
+Container
+==============================*/
+
+.container{
+
+    width:92%;
+    max-width:1200px;
+    margin:30px auto;
+
+}
+
+/*==============================
+Header
+==============================*/
+
+.header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:22px 30px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.30);
+
+    margin-bottom:25px;
+
+}
+
+.header h1{
+
+    flex:1;
+    text-align:center;
+    color:white;
+    font-size:34px;
+    font-weight:700;
+
+}
+
+.header i{
+
+    color:#ffb347;
+    margin-right:8px;
+
+}
+
+/*==============================
+Back Button
+==============================*/
+
+.back-btn{
+
+    border:none;
+    background:rgba(255,255,255,.12);
+    color:white;
+    padding:12px 22px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+
+}
+
+.back-btn:hover{
+
+    background:#ff6b35;
+    transform:translateY(-3px);
+
+}
+
+/*==============================
+Welcome
+==============================*/
+
+.welcome{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:20px;
+
+    padding:24px;
+
+    margin-bottom:30px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+}
+
+.welcome h2{
+
+    color:white;
+    font-size:28px;
+    margin-bottom:10px;
+
+}
+
+.welcome p{
+
+    color:#d8d8d8;
+    line-height:24px;
+
+}
+
+/*==============================
+Food List
+==============================*/
+
+.food-list{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+
+}
+
+.list-header{
+
+    display:flex;
+    justify-content:space-between;
+    color:#ffb347;
+    font-size:18px;
+    font-weight:600;
+    padding-bottom:15px;
+    border-bottom:1px solid rgba(255,255,255,.12);
+    margin-bottom:15px;
+
+}
+
+#dishesContainer{
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+
+}
+
+/*==============================
+Food Row
+==============================*/
+
+.food-row{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:15px;
+
+    padding:18px 20px;
+
+    transition:.3s;
+
+}
+
+.food-row:hover{
+
+    background:rgba(255,255,255,.10);
+
+    transform:translateX(6px);
+
+    box-shadow:0 8px 20px rgba(255,255,255,.05);
+
+}
+
+.food-left{
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex:1;
+
+}
+
+.food-left i{
+
+    color:#ffb347;
+    font-size:18px;
+
+}
+
+.food-name{
+
+    color:#fff;
+    font-size:18px;
+    font-weight:600;
+
+}
+
+.food-price{
+
+    color:#00ff88;
+    font-size:15px;
+    margin-top:6px;
+    font-weight:600;
+
+}
+/*==============================
+Food Right
+==============================*/
+
+.food-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+/*==============================
+Quantity Buttons
+==============================*/
+
+.qty-btn{
+
+    width:34px;
+
+    height:34px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#ff9800;
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.qty-btn:hover{
+
+    background:#ff5722;
+
+    transform:scale(1.1);
+
+}
+
+.qty-btn:active{
+
+    transform:scale(.92);
+
+}
+
+/*==============================
+Quantity Value
+==============================*/
+
+.qty-value{
+
+    min-width:28px;
+
+    text-align:center;
+
+    color:#ffffff;
+
+    font-size:18px;
+
+    font-weight:700;
+
+}
+
+/*==============================
+Delete Icon
+==============================*/
+
+.delete-icon{
+
+    color:#ff5c5c;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    margin-left:12px;
+
+    transition:.3s;
+
+}
+
+.delete-icon:hover{
+
+    color:#ff0000;
+
+    transform:scale(1.25) rotate(-10deg);
+
+}
+
+/*==============================
+Place Order
+==============================*/
+
+.place-order{
+
+    margin-top:30px;
+
+}
+
+.place-btn{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#ff9800,#ff5722);
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.place-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 25px rgba(255,87,34,.35);
+
+}
+
+.place-btn:active{
+
+    transform:scale(.98);
+
+}
+
+/*==============================
+Empty Cart
+==============================*/
+
+.empty-cart{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:20px;
+
+    padding:60px 30px;
+
+    text-align:center;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+
+}
+
+.empty-cart i{
+
+    font-size:55px;
+
+    color:#ffb347;
+
+    margin-bottom:20px;
+
+}
+
+.empty-cart h2{
+
+    color:white;
+
+    margin-bottom:12px;
+
+    font-size:30px;
+
+}
+
+.empty-cart p{
+
+    color:#d5d5d5;
+
+    margin-bottom:25px;
+
+    font-size:16px;
+
+}
+
+.empty-cart button{
+
+    padding:14px 28px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#ff9800,#ff5722);
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.empty-cart button:hover{
+
+    transform:translateY(-3px);
+
+}
+/*==============================
+Loading
+==============================*/
+
+.loading{
+
+    text-align:center;
+
+    color:white;
+
+    font-size:20px;
+
+    padding:40px;
+
+}
+
+.loading i{
+
+    color:#ffb347;
+
+    margin-right:10px;
+
+}
+
+/*==============================
+Animations
+==============================*/
+
+.header{
+
+    animation:slideDown .8s ease;
+
+}
+
+.welcome{
+
+    animation:fadeIn .9s ease;
+
+}
+
+.food-list{
+
+    animation:fadeIn .9s ease;
+
+}
+
+.food-row{
+
+    animation:cardUp .5s ease;
+
+}
+
+.place-order{
+
+    animation:fadeIn 1s ease;
+
+}
+
+@keyframes slideDown{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes cardUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/*==============================
+Scrollbar
+==============================*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#1f2937;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#ff6b35;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#ff914d;
+
+}
+
+/*==============================
+Responsive
+==============================*/
+
+@media(max-width:768px){
+
+.container{
+
+    width:95%;
+
+}
+
+.header{
+
+    flex-direction:column;
+
+    gap:18px;
+
+    text-align:center;
+
+}
+
+.header h1{
+
+    font-size:28px;
+
+}
+
+.back-btn{
+
+    width:100%;
+
+}
+
+.list-header{
+
+    display:none;
+
+}
+
+.food-row{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+}
+
+.food-right{
+
+    width:100%;
+
+    justify-content:flex-end;
+
+}
+
+.food-name{
+
+    font-size:16px;
+
+}
+
+.food-price{
+
+    font-size:14px;
+
+}
+
+.qty-btn{
+
+    width:32px;
+
+    height:32px;
+
+}
+
+.place-btn{
+
+    font-size:16px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.header{
+
+    padding:18px;
+
+}
+
+.welcome{
+
+    padding:18px;
+
+}
+
+.food-name{
+
+    font-size:15px;
+
+}
+
+.food-price{
+
+    font-size:13px;
+
+}
+
+.qty-btn{
+
+    width:30px;
+
+    height:30px;
+
+    font-size:16px;
+
+}
+
+.qty-value{
+
+    font-size:16px;
+
+}
+
+.delete-icon{
+
+    font-size:18px;
+
+}
+
+.place-btn{
+
+    padding:14px;
+
+}
+
+}
+
+/*==============================
+Hover Glow
+==============================*/
+
+.header:hover{
+
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+
+}
+
+.welcome:hover{
+
+    box-shadow:0 15px 35px rgba(255,255,255,.08);
+
+}
+
+.food-list:hover{
+
+    border-color:rgba(255,255,255,.20);
+
+}
+
+.food-row:hover{
+
+    border-color:rgba(255,179,71,.25);
+
+}
+
+.place-btn:hover{
+
+    filter:brightness(1.05);
+
+}
+/*==============================
+BILL POPUP
+==============================*/
+
+.bill-modal{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,.75);
+
+    display:none;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+    box-sizing:border-box;
+
+    z-index:9999;
+    backdrop-filter:blur(8px);
+}
+
+.bill-content{
+
+    width:90%;
+    max-width:900px;
+
+    max-height:90vh;
+
+    background:#111827;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+/*==============================
+Bill Header
+==============================*/
+
+.bill-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.bill-header h2{
+
+    color:#ffb347;
+
+    font-size:28px;
+
+}
+
+.close-btn{
+
+    font-size:34px;
+
+    cursor:pointer;
+
+    color:#ff5c5c;
+
+    transition:.3s;
+
+}
+
+.close-btn:hover{
+
+    transform:rotate(90deg);
+
+    color:red;
+
+}
+
+/*==============================
+Bill Head
+==============================*/
+
+.bill-head{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr 1fr;
+
+    font-weight:700;
+
+    color:#ffb347;
+
+    border-bottom:1px solid rgba(255,255,255,.15);
+
+    padding-bottom:10px;
+
+    margin-bottom:10px;
+
+}
+
+#billItems{
+
+    max-height:300px;
+
+    overflow-y:auto;
+
+}
+/*==============================
+Bill Rows
+==============================*/
+
+.bill-row{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr 1fr;
+
+    align-items:center;
+
+    padding:12px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+}
+
+.bill-row span{
+
+    font-size:15px;
+
+}
+
+.bill-row span:nth-child(2){
+
+    text-align:center;
+
+}
+
+.bill-row span:nth-child(3){
+
+    text-align:right;
+
+    color:#00ff88;
+
+    font-weight:600;
+
+}
+
+/*==============================
+Bill Summary
+==============================*/
+
+.bill-summary{
+
+    margin-top:20px;
+
+    border-top:1px solid rgba(255,255,255,.15);
+
+    padding-top:20px;
+
+}
+.bill-buttons button{
+
+    flex:1;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+.cancel-btn{
+
+    background:#ef4444;
+
+    color:#fff;
+
+}
+
+.cancel-btn:hover{
+
+    background:#dc2626;
+
+}
+.print-btn{
+
+    background:#3b82f6;
+
+    color:#fff;
+
+}
+
+.print-btn:hover{
+
+    background:#2563eb;
+
+}
+.confirm-btn{
+
+    background:#22c55e;
+
+    color:#fff;
+
+}
+
+.confirm-btn:hover{
+
+    background:#16a34a;
+
+}
+
+.bill-summary div{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin:12px 0;
+
+    font-size:17px;
+
+    color:#ddd;
+
+}
+
+.bill-summary hr{
+
+    border:none;
+
+    border-top:1px solid rgba(255,255,255,.15);
+
+    margin:15px 0;
+
+}
+
+.grand-total{
+
+    font-size:22px !important;
+
+    font-weight:700;
+
+    color:#00ff88 !important;
+
+}
+
+/*==============================
+Bill Buttons
+==============================*/
+
+.cancel-btn{
+
+    flex:1;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#6b7280;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.cancel-btn:hover{
+
+    background:#4b5563;
+
+    transform:translateY(-2px);
+
+}
+
+.confirm-btn{
+
+    flex:1;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.confirm-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 25px rgba(34,197,94,.35);
+
+}
+/*==============================
+Bill Popup Responsive
+==============================*/
+
+@media(max-width:768px){
+
+.bill-content{
+
+    width:95%;
+
+    padding:20px;
+
+}
+
+.bill-header h2{
+
+    font-size:22px;
+
+}
+
+.bill-head{
+
+    font-size:14px;
+
+}
+
+.bill-row{
+
+    grid-template-columns:2fr .8fr 1fr;
+
+    font-size:14px;
+
+}
+
+.bill-summary div{
+
+    font-size:15px;
+
+}
+
+.grand-total{
+
+    font-size:19px !important;
+
+}
+
+.bill-buttons{
+
+    flex-direction:column;
+
+}
+
+.cancel-btn,
+.confirm-btn{
+
+    width:100%;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.bill-content{
+
+    padding:15px;
+
+}
+
+.bill-header h2{
+
+    font-size:20px;
+
+}
+
+.close-btn{
+
+    font-size:28px;
+
+}
+
+.bill-head{
+
+    font-size:13px;
+
+}
+
+.bill-row{
+
+    font-size:13px;
+
+    padding:10px 0;
+
+}
+
+.bill-summary div{
+
+    font-size:14px;
+
+}
+
+.grand-total{
+
+    font-size:18px !important;
+
+}
+
+}
+
+/*==============================
+Popup Animation
+==============================*/
+
+@keyframes popupZoom{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.8);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
+
+.bill-content{
+
+    animation:popupZoom .35s ease;
+
+}
+
+/*==============================
+Bill Row Hover
+==============================*/
+
+.bill-row:hover{
+
+    background:rgba(255,255,255,.05);
+
+    border-radius:8px;
+
+    transition:.3s;
+
+}
+
+/*==============================
+Scroll Bar
+==============================*/
+
+#billItems::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+#billItems::-webkit-scrollbar-track{
+
+    background:#1f2937;
+
+    border-radius:10px;
+
+}
+
+#billItems::-webkit-scrollbar-thumb{
+
+    background:#ff9800;
+
+    border-radius:10px;
+
+}
+
+#billItems::-webkit-scrollbar-thumb:hover{
+
+    background:#ff5722;
+
+}
+
+/*==============================
+Glow Effect
+==============================*/
+
+.bill-content:hover{
+
+    box-shadow:0 20px 50px rgba(255,152,0,.20);
+
+}
+
+/*==============================
+Button Effects
+==============================*/
+
+.cancel-btn:active,
+.confirm-btn:active{
+
+    transform:scale(.96);
+
+}
+/*====================================
+CUSTOMER DETAILS
+====================================*/
+
+.customer-details{
+
+    margin:20px 0;
+
+    padding:18px;
+
+    background:#f8f9fa;
+
+    border-radius:10px;
+
+    border:1px solid #ddd;
+
+}
+
+.customer-details p{
+
+    margin:10px 0;
+
+    font-size:15px;
+
+    color:#333;
+
+}
+
+.customer-details strong{
+
+    color:#ff6600;
+
+}
+
+/*====================================
+PRINT BUTTON
+====================================*/
+
+
+
+.print-btn:hover{
+
+    background:#084298;
+
+}
+
+/*====================================
+CONFIRM BUTTON
+====================================*/
+
+
+/*====================================
+CANCEL BUTTON
+====================================*/
+
+
+/*====================================
+PRINT BILL
+====================================*/
+
+@media print{
+
+body *{
+
+    visibility:hidden;
+
+}
+
+.bill-content,
+.bill-content *{
+
+    visibility:visible;
+
+}
+
+.bill-content{
+    width:90%;
+    max-width:900px;
+    max-height:90vh;
+    background:#111827;
+    border-radius:20px;
+    padding:30px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+
+}
+
+.bill-buttons{
+
+    display:none;
+
+}
+
+.bill-buttons{
+    display:flex;
+    gap:15px;
+    justify-content:space-between;
+    margin-top:30px;
+}
+
+.bill-buttons button{
+    flex:1;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.cancel-btn{
+    background:#dc3545;
+    color:white;
+}
+
+.cancel-btn:hover{
+    background:#b52b38;
+}
+
+.print-btn{
+    background:#0d6efd;
+    color:white;
+}
+
+.print-btn:hover{
+    background:#084298;
+}
+
+.confirm-btn{
+    background:#28a745;
+    color:white;
+}
+
+.confirm-btn:hover{
+    background:#1f8b39;
+}

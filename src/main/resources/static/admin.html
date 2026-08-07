@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Deliver Foods | Admin Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                Admin Dashboard
+
+            </h1>
+
+            <p>Manage Foods, Hotels and Orders Easily</p>
+
+        </div>
+
+		<div style="display:flex;gap:15px;align-items:center;">
+
+		    <button class="logout-btn" onclick="openOrdersPopup()">
+
+		        <i class="fa-solid fa-cart-shopping"></i>
+
+		        Orders
+
+		    </button>
+
+		    <button class="logout-btn" onclick="logout()">
+
+		        <i class="fa-solid fa-right-from-bracket"></i>
+
+		        Logout
+
+		    </button>
+
+		</div>
+    </div>
+
+    <!-- Add Food Card -->
+
+    <div class="form-card">
+
+        <h2>
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add New Food
+
+        </h2>
+
+        <form id="foodForm">
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Food Name</label>
+
+                    <input type="text"
+                           id="foodName"
+                           placeholder="Enter Food Name"
+                           required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Hotel Name</label>
+
+                    <input type="text"
+                           id="hotelName"
+                           placeholder="Enter Hotel Name"
+                           required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>City</label>
+
+                    <input type="text"
+                           id="city"
+                           placeholder="Enter City"
+                           required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Category</label>
+
+                    <input type="text"
+                           id="category"
+                           placeholder="Enter Category"
+                           required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Price</label>
+
+                    <input type="number"
+                           id="price"
+                           placeholder="Enter Price"
+                           required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Quantity</label>
+
+                    <input type="text"
+                           id="quantity"
+                           placeholder="Full / Half"
+                           required>
+
+                </div>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Description</label>
+
+                <input type="text"
+                       id="description"
+                       placeholder="Enter Description"
+                       required>
+
+            </div>
+
+            <button type="submit" class="btn">
+
+                <i class="fa-solid fa-circle-plus"></i>
+
+                Add Food
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Food Table -->
+
+    <div class="table-card">
+
+        <h2>
+
+            <i class="fa-solid fa-utensils"></i>
+
+            Food List
+
+        </h2>
+
+        <div class="table-responsive">
+
+            <table id="foodTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Food Code</th>
+                        <th>Food</th>
+                        <th>Hotel</th>
+                        <th>City</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="foodBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+<div id="ordersPopup" class="popup-overlay" style="display:none;">
+
+    <div class="popup-box">
+
+        <div class="popup-header">
+
+            <h2>Customer Orders</h2>
+
+            <button onclick="closeOrdersPopup()">✖</button>
+
+        </div>
+
+        <div class="popup-body">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Customer</th>
+                        <th>Food</th>
+                        <th>Food ID</th>
+                        <th>Quantity</th>
+                        <th>Ordered Date</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="ordersBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- Orders Button -->
+
+<div class="table-card">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+
+        <h2>
+            <i class="fa-solid fa-cart-shopping"></i>
+            Customer Orders
+        </h2>
+
+        <button class="btn" onclick="openOrdersPopup()">
+            <i class="fa-solid fa-eye"></i>
+            Orders
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Orders Popup -->
+
+<div id="ordersPopup" class="popup-overlay" style="display:none;">
+
+    <div class="popup-box">
+
+        <div class="popup-header">
+
+            <h2>
+                Customer Orders
+            </h2>
+
+            <button onclick="closeOrdersPopup()">
+                ✖
+            </button>
+
+        </div>
+
+        <div class="popup-body">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Customer</th>
+                        <th>Food</th>
+                        <th>Food ID</th>
+                        <th>Quantity</th>
+                        <th>Ordered Date</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="ordersBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="admin.js"></script>
+
+</body>
+
+</html>
