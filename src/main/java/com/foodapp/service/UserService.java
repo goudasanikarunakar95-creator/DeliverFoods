@@ -38,7 +38,7 @@ public class UserService {
         User savedUser = userRepository.save(user);
 
         // Send Welcome Email
-        emailService.sendWelcomeEmail(savedUser);
+        //emailService.sendWelcomeEmail(savedUser);
 
         return savedUser;
     }
@@ -77,5 +77,20 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+    // ==========================
+// Forgot Password
+// ==========================
+public void resetPassword(String email, String newPassword) {
+
+    Optional<User> user = userRepository.findByEmail(email);
+
+    if (user.isEmpty()) {
+        throw new RuntimeException("Email Not Found");
+    }
+
+    user.get().setPassword(newPassword);
+
+    userRepository.save(user.get());
+}
 
 }

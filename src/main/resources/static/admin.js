@@ -261,3 +261,51 @@ function closeOrdersPopup(){
     document.getElementById("ordersPopup").style.display="none";
 
 }
+// ======================================
+// Remove All Customer Orders
+// ======================================
+function removeAllOrders() {
+
+    const ok = confirm(
+        "⚠ Are you sure you want to remove all customer orders?"
+    );
+
+    if (!ok) {
+        return;
+    }
+
+    fetch("http://localhost:8080/admin/orders", {
+        method: "DELETE"
+    })
+    .then(response => {
+
+        if (!response.ok) {
+            throw new Error("Failed to remove orders");
+        }
+
+        return response.text();
+
+    })
+    .then(message => {
+
+        alert("✅ All customer orders removed successfully.");
+
+        // Refresh orders table
+        const body = document.getElementById("ordersBody");
+
+        body.innerHTML = `
+            <tr>
+                <td colspan="5">No Orders Found</td>
+            </tr>
+        `;
+
+    })
+    .catch(error => {
+
+        console.error(error);
+
+        alert("❌ Unable to remove orders.");
+
+    });
+
+}

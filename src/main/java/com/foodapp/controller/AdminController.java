@@ -16,15 +16,17 @@ public class AdminController {
     @Autowired
     private OrderRepository orderRepository;
 
+
     // ==========================
     // Get All Orders
     // ==========================
     @GetMapping("/orders")
     public List<Order> getAllOrders() {
 
-    	return orderRepository.findAllByOrderByOrderDateDesc();
+        return orderRepository.findAllByOrderByOrderDateDesc();
 
     }
+
 
     // ==========================
     // Delete Order
@@ -35,6 +37,19 @@ public class AdminController {
         orderRepository.deleteById(id);
 
         return "Order Deleted Successfully";
+
+    }
+
+
+    // ==========================================
+    // NEW: Remove All Customer Orders
+    // ==========================================
+    @DeleteMapping("/orders")
+    public String deleteAllOrders() {
+
+        orderRepository.deleteAll();
+
+        return "All Orders Removed Successfully";
 
     }
 

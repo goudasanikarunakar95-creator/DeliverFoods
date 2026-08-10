@@ -4,315 +4,730 @@
 <head>
 
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Deliver Foods | Admin Dashboard</title>
 
+    <!-- Existing CSS -->
     <link rel="stylesheet" href="style.css">
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+
+    <!-- ================================================= -->
+    <!-- POPUP EXTRA STYLE -->
+    <!-- ================================================= -->
+
+    <style>
+
+        /* =========================================
+           Orders Popup Background
+           ========================================= */
+
+        #ordersPopup {
+
+            display: none;
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.60);
+
+            z-index: 9999;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+        }
+
+
+        /* =========================================
+           Popup Box
+           ========================================= */
+
+        #ordersPopup .popup-box {
+
+            width: 100%;
+            max-width: 1100px;
+
+            max-height: 85vh;
+
+            background: white;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow: 0 20px 60px rgba(0,0,0,0.30);
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        /* =========================================
+           Popup Header
+           ========================================= */
+
+        #ordersPopup .popup-header {
+
+            background: linear-gradient(135deg, #ff6b35, #ff8a4c);
+
+            color: white;
+
+            padding: 20px 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            flex-shrink: 0;
+
+        }
+
+
+        #ordersPopup .popup-header h2 {
+
+            margin: 0;
+
+            color: white;
+
+            font-size: 26px;
+
+        }
+
+
+        /* =========================================
+           Close Button
+           ========================================= */
+
+        #ordersPopup .popup-header button {
+
+            width: 45px;
+            height: 45px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: white;
+
+            color: #ff6535;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        #ordersPopup .popup-header button:hover {
+
+            transform: scale(1.05);
+
+        }
+
+
+        /* =========================================
+           Popup Body
+           ========================================= */
+
+        #ordersPopup .popup-body {
+
+            padding: 20px 25px 25px;
+
+            overflow-y: auto;
+
+        }
+
+
+        /* =========================================
+           Remove Orders Area
+           ========================================= */
+
+        .remove-orders-container {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            align-items: center;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        /* =========================================
+           Remove Orders Button
+           ========================================= */
+
+        .remove-orders-btn {
+
+            background: #dc3545;
+
+            color: white;
+
+            border: none;
+
+            padding: 11px 18px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            width: auto;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+        }
+
+
+        .remove-orders-btn:hover {
+
+            background: #bb2d3b;
+
+        }
+
+
+        /* =========================================
+           Orders Table
+           ========================================= */
+
+        #ordersPopup table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+
+        #ordersPopup table th {
+
+            background: #ff6938;
+
+            color: white;
+
+            padding: 15px;
+
+            text-align: center;
+
+            white-space: nowrap;
+
+        }
+
+
+        #ordersPopup table td {
+
+            padding: 14px;
+
+            text-align: center;
+
+            border-bottom: 1px solid #ddd;
+
+        }
+
+
+        #ordersPopup table tr:nth-child(even) {
+
+            background: #fff7f3;
+
+        }
+
+
+        /* =========================================
+           Mobile Responsive
+           ========================================= */
+
+        @media (max-width: 700px) {
+
+            #ordersPopup {
+
+                padding: 10px;
+
+            }
+
+
+            #ordersPopup .popup-box {
+
+                max-height: 90vh;
+
+                border-radius: 15px;
+
+            }
+
+
+            #ordersPopup .popup-header {
+
+                padding: 15px;
+
+            }
+
+
+            #ordersPopup .popup-header h2 {
+
+                font-size: 20px;
+
+            }
+
+
+            #ordersPopup .popup-body {
+
+                padding: 15px;
+
+                overflow-x: auto;
+
+            }
+
+
+            #ordersPopup table {
+
+                min-width: 700px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
 
-    <!-- Header -->
+<!-- ================================================= -->
+<!-- HEADER -->
+<!-- ================================================= -->
 
-    <div class="header">
+<div class="header">
 
-        <div>
+    <div>
 
-            <h1>
+        <h1>
 
-                <i class="fa-solid fa-user-shield"></i>
+            <i class="fa-solid fa-user-shield"></i>
 
-                Admin Dashboard
+            Admin Dashboard
 
-            </h1>
+        </h1>
 
-            <p>Manage Foods, Hotels and Orders Easily</p>
-
-        </div>
-
-		<div style="display:flex;gap:15px;align-items:center;">
-
-		    <button class="logout-btn" onclick="openOrdersPopup()">
-
-		        <i class="fa-solid fa-cart-shopping"></i>
-
-		        Orders
-
-		    </button>
-
-		    <button class="logout-btn" onclick="logout()">
-
-		        <i class="fa-solid fa-right-from-bracket"></i>
-
-		        Logout
-
-		    </button>
-
-		</div>
-    </div>
-
-    <!-- Add Food Card -->
-
-    <div class="form-card">
-
-        <h2>
-
-            <i class="fa-solid fa-plus"></i>
-
-            Add New Food
-
-        </h2>
-
-        <form id="foodForm">
-
-            <div class="form-grid">
-
-                <div class="input-group">
-
-                    <label>Food Name</label>
-
-                    <input type="text"
-                           id="foodName"
-                           placeholder="Enter Food Name"
-                           required>
-
-                </div>
-
-                <div class="input-group">
-
-                    <label>Hotel Name</label>
-
-                    <input type="text"
-                           id="hotelName"
-                           placeholder="Enter Hotel Name"
-                           required>
-
-                </div>
-
-                <div class="input-group">
-
-                    <label>City</label>
-
-                    <input type="text"
-                           id="city"
-                           placeholder="Enter City"
-                           required>
-
-                </div>
-
-                <div class="input-group">
-
-                    <label>Category</label>
-
-                    <input type="text"
-                           id="category"
-                           placeholder="Enter Category"
-                           required>
-
-                </div>
-
-                <div class="input-group">
-
-                    <label>Price</label>
-
-                    <input type="number"
-                           id="price"
-                           placeholder="Enter Price"
-                           required>
-
-                </div>
-
-                <div class="input-group">
-
-                    <label>Quantity</label>
-
-                    <input type="text"
-                           id="quantity"
-                           placeholder="Full / Half"
-                           required>
-
-                </div>
-
-            </div>
-
-            <div class="input-group">
-
-                <label>Description</label>
-
-                <input type="text"
-                       id="description"
-                       placeholder="Enter Description"
-                       required>
-
-            </div>
-
-            <button type="submit" class="btn">
-
-                <i class="fa-solid fa-circle-plus"></i>
-
-                Add Food
-
-            </button>
-
-        </form>
+        <p>
+            Manage Foods, Hotels and Orders Easily
+        </p>
 
     </div>
 
-    <!-- Food Table -->
 
-    <div class="table-card">
+    <div style="display:flex;gap:15px;align-items:center;">
 
-        <h2>
+        <!-- ========================================= -->
+        <!-- OLD FEATURE - ORDERS BUTTON -->
+        <!-- ========================================= -->
 
-            <i class="fa-solid fa-utensils"></i>
+        <button class="logout-btn"
+                onclick="openOrdersPopup()">
 
-            Food List
-
-        </h2>
-
-        <div class="table-responsive">
-
-            <table id="foodTable">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Food Code</th>
-                        <th>Food</th>
-                        <th>Hotel</th>
-                        <th>City</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="foodBody">
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</div>
-<div id="ordersPopup" class="popup-overlay" style="display:none;">
-
-    <div class="popup-box">
-
-        <div class="popup-header">
-
-            <h2>Customer Orders</h2>
-
-            <button onclick="closeOrdersPopup()">✖</button>
-
-        </div>
-
-        <div class="popup-body">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>Customer</th>
-                        <th>Food</th>
-                        <th>Food ID</th>
-                        <th>Quantity</th>
-                        <th>Ordered Date</th>
-                    </tr>
-
-                </thead>
-
-                <tbody id="ordersBody">
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</div>
-<!-- Orders Button -->
-
-<div class="table-card">
-
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-
-        <h2>
             <i class="fa-solid fa-cart-shopping"></i>
-            Customer Orders
-        </h2>
 
-        <button class="btn" onclick="openOrdersPopup()">
-            <i class="fa-solid fa-eye"></i>
             Orders
+
+        </button>
+
+
+        <!-- ========================================= -->
+        <!-- OLD FEATURE - LOGOUT -->
+        <!-- ========================================= -->
+
+        <button class="logout-btn"
+                onclick="logout()">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
         </button>
 
     </div>
 
 </div>
 
-<!-- Orders Popup -->
 
-<div id="ordersPopup" class="popup-overlay" style="display:none;">
+
+<!-- ================================================= -->
+<!-- ADD FOOD CARD -->
+<!-- ================================================= -->
+
+<div class="form-card">
+
+    <h2>
+
+        <i class="fa-solid fa-plus"></i>
+
+        Add New Food
+
+    </h2>
+
+
+    <form id="foodForm">
+
+        <div class="form-grid">
+
+
+            <!-- Food Name -->
+
+            <div class="input-group">
+
+                <label>
+                    Food Name
+                </label>
+
+                <input type="text"
+                       id="foodName"
+                       placeholder="Enter Food Name"
+                       required>
+
+            </div>
+
+
+
+            <!-- Hotel Name -->
+
+            <div class="input-group">
+
+                <label>
+                    Hotel Name
+                </label>
+
+                <input type="text"
+                       id="hotelName"
+                       placeholder="Enter Hotel Name"
+                       required>
+
+            </div>
+
+
+
+            <!-- City -->
+
+            <div class="input-group">
+
+                <label>
+                    City
+                </label>
+
+                <input type="text"
+                       id="city"
+                       placeholder="Enter City"
+                       required>
+
+            </div>
+
+
+
+            <!-- Category -->
+
+            <div class="input-group">
+
+                <label>
+                    Category
+                </label>
+
+                <input type="text"
+                       id="category"
+                       placeholder="Enter Category"
+                       required>
+
+            </div>
+
+
+
+            <!-- Price -->
+
+            <div class="input-group">
+
+                <label>
+                    Price
+                </label>
+
+                <input type="number"
+                       id="price"
+                       placeholder="Enter Price"
+                       required>
+
+            </div>
+
+
+
+            <!-- Quantity -->
+
+            <div class="input-group">
+
+                <label>
+                    Quantity
+                </label>
+
+                <input type="text"
+                       id="quantity"
+                       placeholder="Full / Half"
+                       required>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Description -->
+
+        <div class="input-group">
+
+            <label>
+                Description
+            </label>
+
+            <input type="text"
+                   id="description"
+                   placeholder="Enter Description"
+                   required>
+
+        </div>
+
+
+
+        <!-- Add Food Button -->
+
+        <button type="submit"
+                class="btn">
+
+            <i class="fa-solid fa-circle-plus"></i>
+
+            Add Food
+
+        </button>
+
+    </form>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- FOOD TABLE -->
+<!-- ================================================= -->
+
+<div class="table-card">
+
+    <h2>
+
+        <i class="fa-solid fa-utensils"></i>
+
+        Food List
+
+    </h2>
+
+
+    <div class="table-responsive">
+
+        <table id="foodTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Food Code
+                    </th>
+
+                    <th>
+                        Food
+                    </th>
+
+                    <th>
+                        Hotel
+                    </th>
+
+                    <th>
+                        City
+                    </th>
+
+                    <th>
+                        Category
+                    </th>
+
+                    <th>
+                        Price
+                    </th>
+
+                    <th>
+                        Quantity
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="foodBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- ORDERS POPUP -->
+<!-- IMPORTANT: id="ordersPopup" -->
+<!-- ================================================= -->
+
+<div id="ordersPopup">
+
+
+    <!-- Popup Box -->
 
     <div class="popup-box">
+
+
+        <!-- ========================================= -->
+        <!-- POPUP HEADER -->
+        <!-- ========================================= -->
 
         <div class="popup-header">
 
             <h2>
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
                 Customer Orders
+
             </h2>
 
-            <button onclick="closeOrdersPopup()">
+
+            <!-- Close -->
+
+            <button type="button"
+                    onclick="closeOrdersPopup()">
+
                 ✖
+
             </button>
 
         </div>
 
+
+
+        <!-- ========================================= -->
+        <!-- POPUP BODY -->
+        <!-- ========================================= -->
+
         <div class="popup-body">
 
-            <table>
 
-                <thead>
+            <!-- ========================================= -->
+            <!-- NEW FEATURE - REMOVE ORDERS -->
+            <!-- ========================================= -->
 
-                    <tr>
+            <div class="remove-orders-container">
 
-                        <th>Customer</th>
-                        <th>Food</th>
-                        <th>Food ID</th>
-                        <th>Quantity</th>
-                        <th>Ordered Date</th>
+                <button type="button"
+                        class="remove-orders-btn"
+                        onclick="removeAllOrders()">
 
-                    </tr>
+                    <i class="fa-solid fa-trash"></i>
 
-                </thead>
+                    Remove Orders
 
-                <tbody id="ordersBody">
+                </button>
 
-                </tbody>
+            </div>
 
-            </table>
+
+
+            <!-- ========================================= -->
+            <!-- ORDERS TABLE -->
+            <!-- ONLY ONE TABLE -->
+            <!-- ========================================= -->
+
+            <div class="table-responsive">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Food
+                            </th>
+
+                            <th>
+                                Food ID
+                            </th>
+
+                            <th>
+                                Quantity
+                            </th>
+
+                            <th>
+                                Ordered Date
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="ordersBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 
@@ -320,7 +735,14 @@
 
 </div>
 
+
+
+<!-- ================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ================================================= -->
+
 <script src="admin.js"></script>
+
 
 </body>
 

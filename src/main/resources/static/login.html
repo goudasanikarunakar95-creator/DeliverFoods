@@ -1,45 +1,178 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deliver Foods | User Login</title>
+<link rel="stylesheet" href="login.css">
 
-    <link rel="stylesheet" href="login.css">
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
 
-<body>
+<!-- ====================================== -->
+<!-- User Login Box -->
+<!-- ====================================== -->
 
-<div class="container">
+<div class="login-box">
 
-    <div class="login-box">
+    <div class="logo">
 
-        <div class="logo">
+        <i class="fa-solid fa-burger"></i>
 
-            <i class="fa-solid fa-burger"></i>
+        <h1>Deliver Foods</h1>
 
-            <h1>Deliver Foods</h1>
+        <p>Fresh Food Delivered Fast</p>
 
-            <p>Fresh Food Delivered Fast</p>
+    </div>
+
+
+    <h2>
+
+        <i class="fa-solid fa-user"></i>
+
+        User Login
+
+    </h2>
+
+
+    <!-- ====================================== -->
+    <!-- Login Form -->
+    <!-- ====================================== -->
+
+    <form id="loginForm">
+
+        <div class="input-group">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter Email"
+                required>
 
         </div>
 
-        <h2>
 
-            <i class="fa-solid fa-user"></i>
+        <div class="input-group">
 
-            User Login
+            <i class="fa-solid fa-lock"></i>
 
-        </h2>
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+                required>
 
-        <form id="loginForm">
+        </div>
+
+
+        <button type="submit">
+
+            <i class="fa-solid fa-right-to-bracket"></i>
+
+            Login
+
+        </button>
+
+    </form>
+
+
+    <!-- ====================================== -->
+    <!-- Forgot Password -->
+    <!-- ====================================== -->
+
+    <p class="forgot-password">
+
+        <a href="javascript:void(0)"
+           onclick="openForgotPassword()">
+
+            <i class="fa-solid fa-key"></i>
+
+            Forgot Password?
+
+        </a>
+
+    </p>
+
+
+    <!-- ====================================== -->
+    <!-- Register -->
+    <!-- ====================================== -->
+
+    <p class="register">
+
+        Don't have an account?
+
+        <a href="register.html">Create Account</a>
+
+    </p>
+
+
+    <hr>
+
+
+    <!-- ====================================== -->
+    <!-- Admin Login -->
+    <!-- ====================================== -->
+
+    <p class="switch-page">
+
+        <i class="fa-solid fa-user-shield"></i>
+
+        Admin Login?
+
+        <a href="admin-login.html">Click Here</a>
+
+    </p>
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- Forgot Password Popup -->
+<!-- ================================================== -->
+
+<div id="forgotPasswordPopup"
+     class="forgot-popup">
+
+
+    <div class="forgot-popup-box">
+
+
+        <!-- ====================================== -->
+        <!-- Popup Header -->
+        <!-- ====================================== -->
+
+        <div class="forgot-popup-header">
+
+            <h2>
+
+                <i class="fa-solid fa-key"></i>
+
+                Forgot Password
+
+            </h2>
+
+
+            <button type="button"
+                    onclick="closeForgotPassword()">
+
+                ✖
+
+            </button>
+
+        </div>
+
+
+        <!-- ====================================== -->
+        <!-- Forgot Password Form -->
+        <!-- ====================================== -->
+
+        <form id="forgotPasswordForm">
+
+
+            <!-- Registered Email -->
 
             <div class="input-group">
 
@@ -47,11 +180,14 @@
 
                 <input
                     type="email"
-                    id="email"
-                    placeholder="Enter Email"
+                    id="forgotEmail"
+                    placeholder="Enter Registered Email"
                     required>
 
             </div>
+
+
+            <!-- New Password -->
 
             <div class="input-group">
 
@@ -59,41 +195,40 @@
 
                 <input
                     type="password"
-                    id="password"
-                    placeholder="Enter Password"
+                    id="newPassword"
+                    placeholder="Enter New Password"
                     required>
 
             </div>
 
+
+            <!-- Confirm Password -->
+
+            <div class="input-group">
+
+                <i class="fa-solid fa-lock"></i>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm New Password"
+                    required>
+
+            </div>
+
+
+            <!-- Reset Password Button -->
+
             <button type="submit">
 
-                <i class="fa-solid fa-right-to-bracket"></i>
+                <i class="fa-solid fa-key"></i>
 
-                Login
+                Reset Password
 
             </button>
 
+
         </form>
-
-        <p class="register">
-
-            Don't have an account?
-
-            <a href="register.html">Create Account</a>
-
-        </p>
-
-        <hr>
-
-        <p class="switch-page">
-
-            <i class="fa-solid fa-user-shield"></i>
-
-            Admin Login?
-
-            <a href="admin-login.html">Click Here</a>
-
-        </p>
 
     </div>
 

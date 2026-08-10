@@ -97,3 +97,129 @@ if (adminLoginForm) {
     });
 
 }
+// ======================================
+// Forgot Password - Popup
+// ======================================
+
+function openForgotPassword() {
+
+    document.getElementById("forgotPasswordPopup").style.display = "flex";
+
+}
+
+
+function closeForgotPassword() {
+
+    document.getElementById("forgotPasswordPopup").style.display = "none";
+
+}
+
+
+// ======================================
+// Reset Password
+// ======================================
+
+const forgotPasswordForm =
+    document.getElementById("forgotPasswordForm");
+
+
+if (forgotPasswordForm) {
+
+    forgotPasswordForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+
+        const email =
+            document.getElementById("forgotEmail").value.trim();
+
+        const newPassword =
+            document.getElementById("newPassword").value;
+
+        const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+
+        // Check passwords
+
+        if (newPassword !== confirmPassword) {
+
+            alert("❌ Passwords do not match.");
+
+            return;
+
+        }
+
+
+        if (newPassword.length < 6) {
+
+            alert("❌ Password must contain at least 6 characters.");
+
+            return;
+
+        }
+
+
+        const resetData = {
+
+            email: email,
+
+            password: newPassword
+
+        };
+
+
+        // Backend endpoint
+        fetch("http://localhost:8080/users/forgot-password", {
+
+            method: "PUT",
+
+            headers: {
+
+                "Content-Type": "application/json"
+
+            },
+
+            body: JSON.stringify(resetData)
+
+        })
+
+        .then(response => {
+
+            if (!response.ok) {
+
+                throw new Error("Unable to reset password");
+
+            }
+
+            return response.text();
+
+        })
+
+        .then(message => {
+
+            alert("✅ Password Reset Successfully");
+
+
+            // Close popup
+
+            closeForgotPassword();
+
+
+            // Clear form
+
+            forgotPasswordForm.reset();
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+
+            alert("❌ Email not found or password reset failed.");
+
+        });
+
+    });
+
+}

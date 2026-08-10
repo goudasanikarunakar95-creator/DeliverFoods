@@ -28,6 +28,7 @@ public class OrderService {
     @Autowired
     private EmailService emailService;
 
+
     // ======================================
     // Place Order
     // ======================================
@@ -78,6 +79,7 @@ public class OrderService {
                  .append("\n");
         }
 
+
         // ======================================
         // OLD EMAIL FEATURES (UNCHANGED)
         // ======================================
@@ -94,34 +96,53 @@ public class OrderService {
                 grandTotal
         );
 
+
         // ======================================
         // Clear Cart
         // ======================================
+
         cartRepository.deleteAll(cartItems);
 
+
         // Return Total (Bill Generation)
+
         return grandTotal;
     }
+
 
     // ======================================
     // Admin - View All Orders
     // ======================================
     public List<Order> getAllOrders() {
+
         return orderRepository.findAllByOrderByOrderDateDesc();
     }
+
 
     // ======================================
     // User - My Orders
     // ======================================
     public List<Order> getOrdersByUser(User user) {
+
         return orderRepository.findByUser(user);
     }
+
 
     // ======================================
     // Admin - Delete Order
     // ======================================
     public void deleteOrder(Long id) {
+
         orderRepository.deleteById(id);
+    }
+
+
+    // =====================================================
+    // NEW: Admin - Delete All Customer Orders
+    // =====================================================
+    public void deleteAllOrders() {
+
+        orderRepository.deleteAll();
     }
 
 }

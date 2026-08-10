@@ -73,5 +73,17 @@ public class UserController {
 
         return "✅ User Deleted Successfully";
     }
+// ==========================
+// Forgot Password
+// ==========================
+@PutMapping("/forgot-password")
+public String forgotPassword(@RequestBody User user) {
 
+    userService.resetPassword(
+            user.getEmail(),
+            user.getPassword()
+    );
+
+    return "✅ Password Reset Successfully";
+}
 }

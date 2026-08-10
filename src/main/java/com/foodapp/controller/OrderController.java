@@ -14,6 +14,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+
     // ===============================
     // Place Order
     // ===============================
@@ -25,6 +26,7 @@ public class OrderController {
         return ResponseEntity.ok("Order Placed Successfully");
     }
 
+
     // ===============================
     // Get All Orders
     // ===============================
@@ -35,15 +37,28 @@ public class OrderController {
 
     }
 
+
     // ===============================
-    // Delete Order
+    // Delete Single Order
     // ===============================
-    @DeleteMapping("/{id}") 
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOrder(@PathVariable Long id) {
 
         orderService.deleteOrder(id);
 
         return ResponseEntity.ok("Order Deleted Successfully");
+    }
+
+
+    // =====================================================
+    // NEW: Delete All Customer Orders
+    // =====================================================
+    @DeleteMapping("/remove-all")
+    public ResponseEntity<String> removeAllOrders() {
+
+        orderService.deleteAllOrders();
+
+        return ResponseEntity.ok("All Orders Removed Successfully");
     }
 
 }

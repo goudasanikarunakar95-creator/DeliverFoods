@@ -2,17 +2,31 @@
 // User Registration
 // ==============================
 
-document.getElementById("registerForm").addEventListener("submit", function(e){
+document.getElementById("registerForm").addEventListener("submit", function(e) {
 
     e.preventDefault();
+
+    // ==============================
+    // Get Passwords
+    // ==============================
 
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
-    if(password !== confirmPassword){
+    // ==============================
+    // Password Validation
+    // ==============================
+
+    if (password !== confirmPassword) {
+
         alert("❌ Password and Confirm Password do not match");
+
         return;
     }
+
+    // ==============================
+    // Create User Object
+    // ==============================
 
     const user = {
 
@@ -25,37 +39,69 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
 
     };
 
-    fetch("http://localhost:8080/users/register",{
+    // ==============================
+    // Register User
+    // Backend Endpoint:
+    // POST /users/register
+    // ==============================
 
-        method:"POST",
+    fetch("/users/register", {
 
-        headers:{
-            "Content-Type":"application/json"
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
         },
 
-        body:JSON.stringify(user)
+        body: JSON.stringify(user)
 
     })
-    .then(response=>{
 
-        if(!response.ok){
-            throw new Error("Registration Failed");
+    // ==============================
+    // Handle Server Response
+    // ==============================
+
+    .then(async response => {
+
+        const responseText = await response.text();
+
+        console.log("HTTP Status:", response.status);
+        console.log("Server Response:", responseText);
+
+        // ==============================
+        // Registration Failed
+        // ==============================
+
+        if (!response.ok) {
+
+            throw new Error(
+                responseText || `HTTP Error ${response.status}`
+            );
         }
 
-        return response.json();
-
-    })
-    .then(data=>{
+        // ==============================
+        // Registration Successful
+        // ==============================
 
         alert("✅ Account Created Successfully");
 
-        window.location.href="login.html";
+        // Redirect to Login
+        window.location.href = "login.html";
 
     })
-    .catch(error=>{
 
-        console.error(error);
-        alert("❌ Email Already Registered or Server Error");
+    // ==============================
+    // Handle Errors
+    // ==============================
+
+    .catch(error => {
+
+        console.error("❌ Registration Error:", error);
+
+        alert(
+            "❌ Registration Failed\n\n" +
+            error.message
+        );
 
     });
 

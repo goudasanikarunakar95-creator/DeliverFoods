@@ -16,6 +16,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     // ==========================
     List<Order> findByUser(User user);
 
+
     // ==========================
     // NEW FEATURES
     // ==========================
@@ -26,8 +27,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     // Get orders by status
     List<Order> findByOrderStatus(String orderStatus);
 
-    // Delete Order (already available in JpaRepository,
-    // adding this for readability)
+
+    // Delete Order
+    // Already available in JpaRepository,
+    // adding this for readability
     void deleteById(Long id);
 
 }

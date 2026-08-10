@@ -1,222 +1,545 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-body{
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    min-height:100vh;
-    background:linear-gradient(135deg,#ff6b35,#ff914d,#ffb347);
-    overflow-y:auto;
-    padding:30px 0;
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    min-height: 100vh;
+
+    background: linear-gradient(
+        135deg,
+        #ff6b35,
+        #ff914d,
+        #ffb347
+    );
+
+    overflow-y: auto;
+
+    padding: 30px 0;
 }
 
-.container{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    padding:20px;
+
+.container {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 20px;
 }
 
-.login-box{
 
-    width:430px;
+/* ======================================
+   Login Box
+   ====================================== */
 
-    background:rgba(255,255,255,.18);
+.login-box {
 
-    backdrop-filter:blur(18px);
+    width: 430px;
 
-    border:1px solid rgba(255,255,255,.30);
+    background: rgba(255, 255, 255, .18);
 
-    border-radius:22px;
+    backdrop-filter: blur(18px);
 
-    padding:35px;
+    border: 1px solid rgba(255, 255, 255, .30);
 
-    margin:20px 0;
+    border-radius: 22px;
 
-    box-shadow:0 20px 40px rgba(0,0,0,.25);
+    padding: 35px;
 
-    animation:fadeIn .8s ease;
+    margin: 20px 0;
 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .25);
+
+    animation: fadeIn .8s ease;
 }
 
-.login-box h1{
 
-    text-align:center;
+/* ======================================
+   Login Heading
+   ====================================== */
 
-    color:white;
+.login-box h1 {
 
-    margin-bottom:10px;
+    text-align: center;
 
-    font-size:34px;
+    color: white;
 
+    margin-bottom: 10px;
+
+    font-size: 34px;
 }
 
-.login-box h2{
 
-    text-align:center;
+.login-box h2 {
 
-    color:white;
+    text-align: center;
 
-    margin-bottom:25px;
+    color: white;
 
-    font-size:28px;
+    margin-bottom: 25px;
 
+    font-size: 28px;
 }
 
-input{
 
-    width:100%;
+/* ======================================
+   Input
+   ====================================== */
 
-    padding:15px;
+input {
 
-    margin-bottom:18px;
+    width: 100%;
 
-    border:none;
+    padding: 15px;
 
-    border-radius:12px;
+    margin-bottom: 18px;
 
-    outline:none;
+    border: none;
 
-    font-size:16px;
+    border-radius: 12px;
 
-    transition:.3s;
+    outline: none;
 
+    font-size: 16px;
+
+    transition: .3s;
 }
 
-input:focus{
 
-    transform:scale(1.02);
+input:focus {
 
-    box-shadow:0 0 15px rgba(255,255,255,.6);
+    transform: scale(1.02);
 
+    box-shadow: 0 0 15px rgba(255, 255, 255, .6);
 }
 
-button{
 
-    width:100%;
+/* ======================================
+   Buttons
+   ====================================== */
 
-    padding:15px;
+button {
 
-    border:none;
+    width: 100%;
 
-    border-radius:12px;
+    padding: 15px;
 
-    background:white;
+    border: none;
 
-    color:#ff6b35;
+    border-radius: 12px;
 
-    font-size:17px;
+    background: white;
 
-    font-weight:700;
+    color: #ff6b35;
 
-    cursor:pointer;
+    font-size: 17px;
 
-    transition:.3s;
+    font-weight: 700;
 
+    cursor: pointer;
+
+    transition: .3s;
 }
 
-button:hover{
 
-    transform:translateY(-3px);
+button:hover {
 
-    box-shadow:0 12px 25px rgba(0,0,0,.20);
+    transform: translateY(-3px);
 
+    box-shadow: 0 12px 25px rgba(0, 0, 0, .20);
 }
 
-p{
 
-    text-align:center;
+/* ======================================
+   Paragraph
+   ====================================== */
 
-    margin-top:20px;
+p {
 
-    color:white;
+    text-align: center;
 
+    margin-top: 20px;
+
+    color: white;
 }
 
-a{
 
-    color:white;
+/* ======================================
+   Links
+   ====================================== */
 
-    text-decoration:none;
+a {
 
-    font-weight:bold;
+    color: white;
 
+    text-decoration: none;
+
+    font-weight: bold;
 }
 
-a:hover{
 
-    text-decoration:underline;
+a:hover {
 
+    text-decoration: underline;
 }
 
-hr{
 
-    border:none;
+/* ======================================
+   Horizontal Line
+   ====================================== */
 
-    border-top:1px solid rgba(255,255,255,.40);
+hr {
 
-    margin:25px 0;
+    border: none;
 
+    border-top: 1px solid rgba(255, 255, 255, .40);
+
+    margin: 25px 0;
 }
 
-.switch-page{
 
-    font-size:17px;
+/* ======================================
+   Admin Login
+   ====================================== */
 
+.switch-page {
+
+    font-size: 17px;
 }
 
-@keyframes fadeIn{
 
-    from{
-        opacity:0;
-        transform:translateY(25px);
+/* ======================================
+   Forgot Password Link
+   ====================================== */
+
+.forgot-password {
+
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+
+.forgot-password a {
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.forgot-password a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* ======================================
+   Fade Animation
+   ====================================== */
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(25px);
     }
 
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+    to {
 
+        opacity: 1;
+
+        transform: translateY(0);
+    }
 }
 
-@media(max-width:500px){
 
-    body{
-        padding:20px 0;
+/* ======================================
+   Forgot Password Popup
+   ====================================== */
+
+.forgot-popup {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    z-index: 9999;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+
+/* ======================================
+   Forgot Password Popup Box
+   ====================================== */
+
+.forgot-popup-box {
+
+    width: 400px;
+
+    max-width: 100%;
+
+    background: white;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+
+    animation: fadeIn .3s ease;
+}
+
+
+/* ======================================
+   Popup Header
+   ====================================== */
+
+.forgot-popup-header {
+
+    background: linear-gradient(
+        135deg,
+        #ff6b35,
+        #ff8a50
+    );
+
+    color: white;
+
+    padding: 18px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.forgot-popup-header h2 {
+
+    margin: 0;
+
+    font-size: 22px;
+
+    color: white;
+}
+
+
+/* ======================================
+   Popup Close Button
+   ====================================== */
+
+.forgot-popup-header button {
+
+    background: white;
+
+    color: #ff6b35;
+
+    border: none;
+
+    width: 35px;
+
+    height: 35px;
+
+    border-radius: 50%;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    padding: 0;
+}
+
+
+.forgot-popup-header button:hover {
+
+    transform: none;
+
+    box-shadow: none;
+
+    background: #f5f5f5;
+}
+
+
+/* ======================================
+   Forgot Password Form
+   ====================================== */
+
+#forgotPasswordForm {
+
+    padding: 25px;
+}
+
+
+/* ======================================
+   Popup Input Groups
+   ====================================== */
+
+#forgotPasswordForm .input-group {
+
+    margin-bottom: 18px;
+
+    position: relative;
+}
+
+
+/* ======================================
+   Popup Inputs
+   ====================================== */
+
+#forgotPasswordForm input {
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    margin-bottom: 0;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    color: #333;
+
+    background: #fff;
+}
+
+
+#forgotPasswordForm input:focus {
+
+    transform: none;
+
+    border-color: #ff6b35;
+
+    box-shadow: 0 0 8px rgba(255, 107, 53, .25);
+}
+
+
+/* ======================================
+   Reset Password Button
+   ====================================== */
+
+#forgotPasswordForm button[type="submit"] {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #ff6b35;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+
+#forgotPasswordForm button[type="submit"]:hover {
+
+    background: #e85b2a;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 18px rgba(255, 107, 53, .3);
+}
+
+
+/* ======================================
+   Mobile Responsive
+   ====================================== */
+
+@media (max-width: 500px) {
+
+    body {
+
+        padding: 20px 0;
     }
 
-    .container{
-        padding:15px;
+
+    .container {
+
+        padding: 15px;
     }
 
-    .login-box{
 
-        width:100%;
+    .login-box {
 
-        padding:25px;
+        width: 100%;
 
-        margin:10px 0;
+        padding: 25px;
 
+        margin: 10px 15px;
     }
 
-    .login-box h1{
 
-        font-size:28px;
+    .login-box h1 {
 
+        font-size: 28px;
     }
 
-    .login-box h2{
 
-        font-size:24px;
+    .login-box h2 {
 
+        font-size: 24px;
+    }
+
+
+    .forgot-popup {
+
+        padding: 15px;
+    }
+
+
+    .forgot-popup-box {
+
+        width: 100%;
+    }
+
+
+    .forgot-popup-header h2 {
+
+        font-size: 19px;
     }
 
 }
