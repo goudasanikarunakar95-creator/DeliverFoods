@@ -5,6 +5,7 @@ if (sessionStorage.getItem("adminLoggedIn") !== "true") {
     window.location.href = "admin-login.html";
 }
 
+
 // ======================================
 // Add Food
 // ======================================
@@ -36,17 +37,26 @@ document.getElementById("foodForm").addEventListener("submit", function (e) {
         return;
     }
 
-    fetch("http://localhost:8080/foods", {
+    // ===============================
+    // Production + Local API
+    // ===============================
+    fetch("/foods", {
+
         method: "POST",
+
         headers: {
             "Content-Type": "application/json"
         },
+
         body: JSON.stringify(food)
+
     })
     .then(response => {
 
         if (!response.ok) {
-            throw new Error("Failed to add food");
+            throw new Error(
+                "Failed to add food. Status: " + response.status
+            );
         }
 
         return response.json();
@@ -63,7 +73,7 @@ document.getElementById("foodForm").addEventListener("submit", function (e) {
     })
     .catch(error => {
 
-        console.error(error);
+        console.error("Add Food Error:", error);
 
         alert("❌ Unable to add food.");
 
@@ -71,89 +81,144 @@ document.getElementById("foodForm").addEventListener("submit", function (e) {
 
 });
 
+
 // ======================================
 // Load Foods
 // ======================================
 function loadFoods() {
 
-    fetch("http://localhost:8080/foods")
-    .then(response => {
+    fetch("/foods")
 
-        if (!response.ok) {
-            throw new Error("Unable to fetch foods");
-        }
+        .then(response => {
 
-        return response.json();
+            if (!response.ok) {
+                throw new Error(
+                    "Unable to fetch foods. Status: " +
+                    response.status
+                );
+            }
 
-    })
-    .then(data => {
+            return response.json();
 
-        const body = document.getElementById("foodBody");
+        })
 
-        body.innerHTML = "";
+        .then(data => {
 
-        if (data.length === 0) {
+            console.log("Foods Loaded:", data);
 
-            body.innerHTML = `
-                <tr>
-                    <td colspan="8">No Foods Available</td>
-                </tr>
-            `;
+            const body =
+                document.getElementById("foodBody");
 
-            return;
-        }
+            body.innerHTML = "";
 
-        data.forEach(food => {
+            if (!data || data.length === 0) {
 
-            body.innerHTML += `
-                <tr>
-                    <td>${food.foodCode}</td>
-                    <td>${food.foodName}</td>
-                    <td>${food.hotelName}</td>
-                    <td>${food.city}</td>
-                    <td>${food.category}</td>
-                    <td>₹${food.price}</td>
-                    <td>${food.quantity}</td>
-                    <td>
-                        <button class="deleteBtn"
+                body.innerHTML = `
+                    <tr>
+                        <td colspan="8">
+                            No Foods Available
+                        </td>
+                    </tr>
+                `;
+
+                return;
+            }
+
+            data.forEach(food => {
+
+                body.innerHTML += `
+                    <tr>
+
+                        <td>
+                            ${food.foodCode || ""}
+                        </td>
+
+                        <td>
+                            ${food.foodName || ""}
+                        </td>
+
+                        <td>
+                            ${food.hotelName || ""}
+                        </td>
+
+                        <td>
+                            ${food.city || ""}
+                        </td>
+
+                        <td>
+                            ${food.category || ""}
+                        </td>
+
+                        <td>
+                            ₹${food.price || 0}
+                        </td>
+
+                        <td>
+                            ${food.quantity || ""}
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="deleteBtn"
                                 onclick="deleteFood(${food.id})">
-                            🗑 Delete
-                        </button>
-                    </td>
-                </tr>
-            `;
+
+                                🗑 Delete
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+                `;
+
+            });
+
+        })
+
+        .catch(error => {
+
+            console.error(
+                "Load Foods Error:",
+                error
+            );
+
+            alert("❌ Unable to load foods.");
 
         });
-
-    })
-    .catch(error => {
-
-        console.error(error);
-
-        alert("❌ Unable to load foods.");
-
-    });
-
 }
+
 
 // ======================================
 // Delete Food
 // ======================================
 function deleteFood(id) {
 
-    const ok = confirm("Are you sure you want to delete this food?");
+    const ok = confirm(
+        "Are you sure you want to delete this food?"
+    );
 
     if (!ok) {
         return;
     }
 
-    fetch(`http://localhost:8080/foods/${id}`, {
+    // ===============================
+    // Production + Local API
+    // ===============================
+    fetch(`/foods/${id}`, {
+
         method: "DELETE"
+
     })
     .then(response => {
 
         if (!response.ok) {
-            throw new Error("Delete failed");
+
+            throw new Error(
+                "Delete failed. Status: " +
+                response.status
+            );
+
         }
 
         return response.text();
@@ -168,7 +233,10 @@ function deleteFood(id) {
     })
     .catch(error => {
 
-        console.error(error);
+        console.error(
+            "Delete Food Error:",
+            error
+        );
 
         alert("❌ Unable to delete food.");
 
@@ -176,24 +244,32 @@ function deleteFood(id) {
 
 }
 
+
 // ======================================
 // Logout
 // ======================================
 function logout() {
 
-    const ok = confirm("Do you want to logout?");
+    const ok = confirm(
+        "Do you want to logout?"
+    );
 
     if (!ok) {
         return;
     }
 
-    sessionStorage.removeItem("adminLoggedIn");
+    sessionStorage.removeItem(
+        "adminLoggedIn"
+    );
 
-    alert("👋 Logged out successfully.");
+    alert(
+        "👋 Logged out successfully."
+    );
 
-    window.location.href = "admin-login.html";
-
+    window.location.href =
+        "admin-login.html";
 }
+
 
 // ======================================
 // Page Load
@@ -203,64 +279,147 @@ window.onload = function () {
     loadFoods();
 
 };
+
+
 // ======================================
 // Open Orders Popup
 // ======================================
 function openOrdersPopup() {
 
-    document.getElementById("ordersPopup").style.display = "flex";
+    document.getElementById(
+        "ordersPopup"
+    ).style.display = "flex";
 
-    fetch("http://localhost:8080/admin/orders")
-    .then(response => response.json())
-    .then(data => {
 
-        const body = document.getElementById("ordersBody");
+    fetch("/admin/orders")
 
-        body.innerHTML = "";
+        .then(response => {
 
-        if (data.length === 0) {
+            if (!response.ok) {
 
-            body.innerHTML = `
-                <tr>
-                    <td colspan="5">No Orders Found</td>
-                </tr>
-            `;
+                throw new Error(
+                    "Unable to fetch orders. Status: " +
+                    response.status
+                );
 
-            return;
-        }
+            }
 
-        data.forEach(order => {
+            return response.json();
 
-            body.innerHTML += `
-                <tr>
-                    <td>${order.user.name}</td>
-                    <td>${order.food.foodName}</td>
-                    <td>${order.food.foodCode}</td>
-                    <td>${order.quantity}</td>
-                    <td>${order.orderDate.replace("T"," ")}</td>
-                </tr>
-            `;
+        })
+
+        .then(data => {
+
+            console.log(
+                "Orders Loaded:",
+                data
+            );
+
+            const body =
+                document.getElementById(
+                    "ordersBody"
+                );
+
+            body.innerHTML = "";
+
+
+            if (!data || data.length === 0) {
+
+                body.innerHTML = `
+                    <tr>
+                        <td colspan="5">
+                            No Orders Found
+                        </td>
+                    </tr>
+                `;
+
+                return;
+            }
+
+
+            data.forEach(order => {
+
+                body.innerHTML += `
+                    <tr>
+
+                        <td>
+                            ${
+                                order.user &&
+                                order.user.name
+                                    ? order.user.name
+                                    : ""
+                            }
+                        </td>
+
+                        <td>
+                            ${
+                                order.food &&
+                                order.food.foodName
+                                    ? order.food.foodName
+                                    : ""
+                            }
+                        </td>
+
+                        <td>
+                            ${
+                                order.food &&
+                                order.food.foodCode
+                                    ? order.food.foodCode
+                                    : ""
+                            }
+                        </td>
+
+                        <td>
+                            ${order.quantity || ""}
+                        </td>
+
+                        <td>
+                            ${
+                                order.orderDate
+                                    ? order.orderDate
+                                        .replace(
+                                            "T",
+                                            " "
+                                        )
+                                    : ""
+                            }
+                        </td>
+
+                    </tr>
+                `;
+
+            });
+
+        })
+
+        .catch(error => {
+
+            console.error(
+                "Load Orders Error:",
+                error
+            );
+
+            alert(
+                "Unable to load orders."
+            );
 
         });
 
-    })
-    .catch(error => {
-
-        console.error(error);
-
-        alert("Unable to load orders.");
-
-    });
-
 }
+
+
 // ======================================
 // Close Orders Popup
 // ======================================
-function closeOrdersPopup(){
+function closeOrdersPopup() {
 
-    document.getElementById("ordersPopup").style.display="none";
+    document.getElementById(
+        "ordersPopup"
+    ).style.display = "none";
 
 }
+
+
 // ======================================
 // Remove All Customer Orders
 // ======================================
@@ -274,13 +433,21 @@ function removeAllOrders() {
         return;
     }
 
-    fetch("http://localhost:8080/admin/orders", {
+
+    fetch("/admin/orders", {
+
         method: "DELETE"
+
     })
     .then(response => {
 
         if (!response.ok) {
-            throw new Error("Failed to remove orders");
+
+            throw new Error(
+                "Failed to remove orders. Status: " +
+                response.status
+            );
+
         }
 
         return response.text();
@@ -288,23 +455,36 @@ function removeAllOrders() {
     })
     .then(message => {
 
-        alert("✅ All customer orders removed successfully.");
+        alert(
+            "✅ All customer orders removed successfully."
+        );
+
 
         // Refresh orders table
-        const body = document.getElementById("ordersBody");
+        const body =
+            document.getElementById(
+                "ordersBody"
+            );
 
         body.innerHTML = `
             <tr>
-                <td colspan="5">No Orders Found</td>
+                <td colspan="5">
+                    No Orders Found
+                </td>
             </tr>
         `;
 
     })
     .catch(error => {
 
-        console.error(error);
+        console.error(
+            "Remove Orders Error:",
+            error
+        );
 
-        alert("❌ Unable to remove orders.");
+        alert(
+            "❌ Unable to remove orders."
+        );
 
     });
 
