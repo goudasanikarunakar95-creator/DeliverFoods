@@ -70,7 +70,8 @@ if (loginForm) {
 // Admin Login
 // ===============================
 
-const adminLoginForm = document.getElementById("adminLoginForm");
+const adminLoginForm =
+    document.getElementById("adminLoginForm");
 
 if (adminLoginForm) {
 
@@ -84,7 +85,8 @@ if (adminLoginForm) {
         const password =
             document.getElementById("adminPassword").value;
 
-        if (username === "deliverfoods" && password === "food@2026") {
+        if (username === "deliverfoods" &&
+            password === "food@2026") {
 
             alert("✅ Admin Login Successful");
 
@@ -154,7 +156,9 @@ if (forgotPasswordForm) {
             document.getElementById("confirmPassword").value;
 
 
-        // Check passwords
+        // ===============================
+        // Check Password Match
+        // ===============================
 
         if (newPassword !== confirmPassword) {
 
@@ -165,7 +169,9 @@ if (forgotPasswordForm) {
         }
 
 
-        // Check password length
+        // ===============================
+        // Check Password Length
+        // ===============================
 
         if (newPassword.length < 6) {
 
@@ -176,10 +182,13 @@ if (forgotPasswordForm) {
         }
 
 
+        // ===============================
+        // Reset Password Data
+        // ===============================
+
         const resetData = {
 
             email: email,
-
             password: newPassword
 
         };
