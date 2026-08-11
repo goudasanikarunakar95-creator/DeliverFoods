@@ -12,12 +12,12 @@ if (loginForm) {
 
         const loginData = {
 
-            email: document.getElementById("email").value,
+            email: document.getElementById("email").value.trim(),
             password: document.getElementById("password").value
 
         };
 
-        fetch("http://localhost:8080/users/login", {
+        fetch("/users/login", {
 
             method: "POST",
 
@@ -55,7 +55,7 @@ if (loginForm) {
 
         .catch(error => {
 
-            console.error(error);
+            console.error("Login Error:", error);
 
             alert("❌ Invalid Email or Password");
 
@@ -64,6 +64,7 @@ if (loginForm) {
     });
 
 }
+
 
 // ===============================
 // Admin Login
@@ -77,8 +78,11 @@ if (adminLoginForm) {
 
         e.preventDefault();
 
-        const username = document.getElementById("adminUsername").value;
-        const password = document.getElementById("adminPassword").value;
+        const username =
+            document.getElementById("adminUsername").value.trim();
+
+        const password =
+            document.getElementById("adminPassword").value;
 
         if (username === "deliverfoods" && password === "food@2026") {
 
@@ -97,20 +101,32 @@ if (adminLoginForm) {
     });
 
 }
+
+
 // ======================================
 // Forgot Password - Popup
 // ======================================
 
 function openForgotPassword() {
 
-    document.getElementById("forgotPasswordPopup").style.display = "flex";
+    const popup =
+        document.getElementById("forgotPasswordPopup");
+
+    if (popup) {
+        popup.style.display = "flex";
+    }
 
 }
 
 
 function closeForgotPassword() {
 
-    document.getElementById("forgotPasswordPopup").style.display = "none";
+    const popup =
+        document.getElementById("forgotPasswordPopup");
+
+    if (popup) {
+        popup.style.display = "none";
+    }
 
 }
 
@@ -122,13 +138,11 @@ function closeForgotPassword() {
 const forgotPasswordForm =
     document.getElementById("forgotPasswordForm");
 
-
 if (forgotPasswordForm) {
 
     forgotPasswordForm.addEventListener("submit", function (e) {
 
         e.preventDefault();
-
 
         const email =
             document.getElementById("forgotEmail").value.trim();
@@ -151,6 +165,8 @@ if (forgotPasswordForm) {
         }
 
 
+        // Check password length
+
         if (newPassword.length < 6) {
 
             alert("❌ Password must contain at least 6 characters.");
@@ -169,8 +185,11 @@ if (forgotPasswordForm) {
         };
 
 
-        // Backend endpoint
-        fetch("http://localhost:8080/users/forgot-password", {
+        // ===============================
+        // Backend - Reset Password
+        // ===============================
+
+        fetch("/users/forgot-password", {
 
             method: "PUT",
 
@@ -200,21 +219,17 @@ if (forgotPasswordForm) {
 
             alert("✅ Password Reset Successfully");
 
-
             // Close popup
-
             closeForgotPassword();
 
-
             // Clear form
-
             forgotPasswordForm.reset();
 
         })
 
         .catch(error => {
 
-            console.error(error);
+            console.error("Password Reset Error:", error);
 
             alert("❌ Email not found or password reset failed.");
 
