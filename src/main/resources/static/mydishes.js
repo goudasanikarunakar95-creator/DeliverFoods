@@ -2,8 +2,11 @@
 // User Authentication
 // ===============================
 if (sessionStorage.getItem("userLoggedIn") !== "true") {
+
     window.location.href = "login.html";
+
 }
+
 
 // ===============================
 // Load My Dishes
@@ -14,44 +17,74 @@ function loadMyDishes() {
 
     console.log("User ID :", userId);
 
-    fetch("http://localhost:8080/cart/" + userId)
+    if (!userId) {
+
+        alert("❌ User session expired. Please login again.");
+
+        window.location.href = "login.html";
+
+        return;
+
+    }
+
+
+    fetch("/cart/" + userId)
+
         .then(response => {
 
             if (!response.ok) {
+
                 throw new Error("Unable to load dishes");
+
             }
 
             return response.json();
 
         })
+
         .then(data => {
 
             console.log("Cart Data :", data);
 
-            const container = document.getElementById("dishesContainer");
+            const container =
+                document.getElementById("dishesContainer");
+
             container.innerHTML = "";
+
 
             if (data.length === 0) {
 
                 container.innerHTML = `
+
                     <div class="empty-cart">
+
                         <i class="fa-solid fa-bowl-food"></i>
+
                         <h2>No Dishes Added</h2>
+
                         <p>Your food list is empty.</p>
+
                         <button onclick="goBack()">
                             🍔 Order Now
                         </button>
+
                     </div>
+
                 `;
 
                 return;
+
             }
+
 
             data.forEach(item => {
 
-                const total = item.food.price * item.quantity;
+                const total =
+                    item.food.price * item.quantity;
+
 
                 container.innerHTML += `
+
                     <div class="food-row">
 
                         <div class="food-left">
@@ -65,53 +98,79 @@ function loadMyDishes() {
                                 </div>
 
                                 <div class="food-price">
-                                    ₹${item.food.price} × ${item.quantity} = ₹${total.toFixed(2)}
+
+                                    ₹${item.food.price}
+                                    × ${item.quantity}
+                                    = ₹${total.toFixed(2)}
+
                                 </div>
 
                             </div>
 
                         </div>
 
+
                         <div class="food-right">
 
-                            <button class="qty-btn"
-                                    onclick="decreaseQty(${item.id})">-</button>
+                            <button
+                                class="qty-btn"
+                                onclick="decreaseQty(${item.id})">
+
+                                -
+
+                            </button>
+
 
                             <span class="qty-value">
+
                                 ${item.quantity}
+
                             </span>
 
-                            <button class="qty-btn"
-                                    onclick="increaseQty(${item.id})">+</button>
 
-                            <i class="fa-solid fa-trash delete-icon"
-                               onclick="removeDish(${item.id})"
-                               title="Remove">
+                            <button
+                                class="qty-btn"
+                                onclick="increaseQty(${item.id})">
+
+                                +
+
+                            </button>
+
+
+                            <i
+                                class="fa-solid fa-trash delete-icon"
+                                onclick="removeDish(${item.id})"
+                                title="Remove">
+
                             </i>
 
                         </div>
 
                     </div>
+
                 `;
 
             });
 
         })
+
         .catch(error => {
 
-            console.error(error);
+            console.error("Load Dishes Error:", error);
 
-            alert("Unable to Load Dishes");
+            alert("❌ Unable to Load Dishes");
 
         });
 
 }
+
+
 // ===============================
 // Increase Quantity
 // ===============================
 function increaseQty(id) {
 
-    fetch("http://localhost:8080/cart/increase/" + id, {
+    fetch("/cart/increase/" + id, {
 
         method: "PUT"
 
@@ -120,7 +179,9 @@ function increaseQty(id) {
     .then(response => {
 
         if (!response.ok) {
+
             throw new Error("Increase Failed");
+
         }
 
         return response.json();
@@ -129,7 +190,7 @@ function increaseQty(id) {
 
     .then(data => {
 
-        console.log("Quantity Increased", data);
+        console.log("Quantity Increased:", data);
 
         loadMyDishes();
 
@@ -137,20 +198,21 @@ function increaseQty(id) {
 
     .catch(error => {
 
-        console.error(error);
+        console.error("Increase Error:", error);
 
-        alert("Unable to Increase Quantity");
+        alert("❌ Unable to Increase Quantity");
 
     });
 
 }
+
 
 // ===============================
 // Decrease Quantity
 // ===============================
 function decreaseQty(id) {
 
-    fetch("http://localhost:8080/cart/decrease/" + id, {
+    fetch("/cart/decrease/" + id, {
 
         method: "PUT"
 
@@ -159,7 +221,9 @@ function decreaseQty(id) {
     .then(response => {
 
         if (!response.ok) {
+
             throw new Error("Decrease Failed");
+
         }
 
         return response.text();
@@ -174,13 +238,14 @@ function decreaseQty(id) {
 
     .catch(error => {
 
-        console.error(error);
+        console.error("Decrease Error:", error);
 
-        alert("Unable to Decrease Quantity");
+        alert("❌ Unable to Decrease Quantity");
 
     });
 
 }
+
 
 // ===============================
 // Remove Dish
@@ -188,10 +253,13 @@ function decreaseQty(id) {
 function removeDish(id) {
 
     if (!confirm("Remove this dish?")) {
+
         return;
+
     }
 
-    fetch("http://localhost:8080/cart/" + id, {
+
+    fetch("/cart/" + id, {
 
         method: "DELETE"
 
@@ -200,7 +268,9 @@ function removeDish(id) {
     .then(response => {
 
         if (!response.ok) {
+
             throw new Error("Delete Failed");
+
         }
 
         return response.text();
@@ -215,13 +285,15 @@ function removeDish(id) {
 
     .catch(error => {
 
-        console.error(error);
+        console.error("Delete Error:", error);
 
-        alert("Unable to Remove Dish");
+        alert("❌ Unable to Remove Dish");
 
     });
 
 }
+
+
 // ===============================
 // Place Order
 // ===============================
@@ -233,6 +305,7 @@ function placeOrder() {
 
 }
 
+
 // ===============================
 // Close Bill
 // ===============================
@@ -242,6 +315,7 @@ function closeBill() {
 
 }
 
+
 // ===============================
 // Load Bill
 // ===============================
@@ -249,73 +323,108 @@ function loadBill() {
 
     const userId = sessionStorage.getItem("userId");
 
-    fetch("http://localhost:8080/cart/" + userId)
+    if (!userId) {
 
-    .then(response => response.json())
+        alert("❌ User session expired.");
 
-    .then(data => {
+        return;
 
-        const billItems = document.getElementById("billItems");
+    }
 
-        billItems.innerHTML = "";
 
-        let subtotal = 0;
+    fetch("/cart/" + userId)
 
-        data.forEach(item => {
+        .then(response => {
 
-            const total = item.food.price * item.quantity;
+            if (!response.ok) {
 
-            subtotal += total;
+                throw new Error("Unable to load bill");
 
-            billItems.innerHTML += `
+            }
 
-                <div class="bill-row">
+            return response.json();
 
-                    <span>${item.food.foodName}</span>
+        })
 
-                    <span>${item.quantity}</span>
+        .then(data => {
 
-                    <span>₹${total.toFixed(2)}</span>
+            const billItems =
+                document.getElementById("billItems");
 
-                </div>
+            billItems.innerHTML = "";
 
-            `;
+
+            let subtotal = 0;
+
+
+            data.forEach(item => {
+
+                const total =
+                    item.food.price * item.quantity;
+
+
+                subtotal += total;
+
+
+                billItems.innerHTML += `
+
+                    <div class="bill-row">
+
+                        <span>
+                            ${item.food.foodName}
+                        </span>
+
+                        <span>
+                            ${item.quantity}
+                        </span>
+
+                        <span>
+                            ₹${total.toFixed(2)}
+                        </span>
+
+                    </div>
+
+                `;
+
+            });
+
+
+            const gst = subtotal * 0.05;
+
+            const delivery = 40;
+
+            const grandTotal =
+                subtotal + gst + delivery;
+
+
+            document.getElementById("subtotal").innerHTML =
+                "₹" + subtotal.toFixed(2);
+
+
+            document.getElementById("gst").innerHTML =
+                "₹" + gst.toFixed(2);
+
+
+            document.getElementById("delivery").innerHTML =
+                "₹" + delivery.toFixed(2);
+
+
+            document.getElementById("grandTotal").innerHTML =
+                "₹" + grandTotal.toFixed(2);
+
+        })
+
+        .catch(error => {
+
+            console.error("Bill Error:", error);
+
+            alert("❌ Unable to Load Bill");
 
         });
 
-        const gst = subtotal * 0.05;
-
-        const delivery = 40;
-
-        const grandTotal = subtotal + gst + delivery;
-
-        document.getElementById("subtotal").innerHTML =
-            "₹" + subtotal.toFixed(2);
-
-        document.getElementById("gst").innerHTML =
-            "₹" + gst.toFixed(2);
-
-        document.getElementById("delivery").innerHTML =
-            "₹" + delivery.toFixed(2);
-
-        document.getElementById("grandTotal").innerHTML =
-            "₹" + grandTotal.toFixed(2);
-
-    })
-
-    .catch(error => {
-
-        console.error(error);
-
-        alert("Unable to Load Bill");
-
-    });
-
 }
 
-// ===============================
-// Confirm Order
-// ===============================
+
 // ===============================
 // Confirm Order
 // ===============================
@@ -323,7 +432,19 @@ function confirmOrder() {
 
     const userId = sessionStorage.getItem("userId");
 
-    fetch("http://localhost:8080/orders/place/" + userId, {
+
+    if (!userId) {
+
+        alert("❌ User session expired.");
+
+        window.location.href = "login.html";
+
+        return;
+
+    }
+
+
+    fetch("/orders/place/" + userId, {
 
         method: "POST"
 
@@ -332,7 +453,9 @@ function confirmOrder() {
     .then(response => {
 
         if (!response.ok) {
+
             throw new Error("Order Failed");
+
         }
 
         return response.text();
@@ -341,24 +464,26 @@ function confirmOrder() {
 
     .then(message => {
 
+        console.log("Order Response:", message);
+
         alert("🎉 Order Placed Successfully!");
 
         closeBill();
 
-        // Reload Cart
         loadMyDishes();
 
     })
 
     .catch(error => {
 
-        console.error(error);
+        console.error("Order Error:", error);
 
         alert("❌ Unable to Place Order");
 
     });
 
 }
+
 
 // ===============================
 // Back
@@ -369,58 +494,30 @@ function goBack() {
 
 }
 
+
 // ===============================
 // Page Load
 // ===============================
+window.onload = function () {
+
+    loadMyDishes();
+
+};
+
 
 // ===============================
 // Close Popup Outside Click
 // ===============================
-window.onclick = function(event){
+window.onclick = function (event) {
 
-    const modal = document.getElementById("billModal");
+    const modal =
+        document.getElementById("billModal");
 
-    if(event.target === modal){
+
+    if (event.target === modal) {
 
         closeBill();
 
     }
 
 };
-function closeBill() {
-    document.getElementById("billModal").style.display = "none";
-}
-
-function confirmOrder() {
-
-    const userId = sessionStorage.getItem("userId");
-
-    fetch("http://localhost:8080/orders/place/" + userId, {
-        method: "POST"
-    })
-    .then(res => {
-        if (!res.ok) {
-            throw new Error("Order Failed");
-        }
-        return res.text();
-    })
-    .then(msg => {
-
-        alert("✅ Order Placed Successfully");
-
-        document.getElementById("billModal").style.display = "none";
-
-        loadMyDishes();
-
-        window.location.href = "user.html";
-
-    })
-    .catch(err => {
-
-        console.log(err);
-
-        alert("❌ Unable to Place Order");
-
-    });
-
-}
