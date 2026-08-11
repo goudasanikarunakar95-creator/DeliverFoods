@@ -21,9 +21,29 @@ public class OrderController {
     @PostMapping("/place/{userId}")
     public ResponseEntity<String> placeOrder(@PathVariable Long userId) {
 
-        orderService.placeOrder(userId);
+        try {
 
-        return ResponseEntity.ok("Order Placed Successfully");
+            orderService.placeOrder(userId);
+
+            return ResponseEntity.ok("Order Placed Successfully");
+
+        } catch (RuntimeException e) {
+
+            System.out.println("Order Error: " + e.getMessage());
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            return ResponseEntity
+                    .internalServerError()
+                    .body("Unable to Place Order");
+
+        }
     }
 
 
@@ -33,7 +53,9 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<?> getAllOrders() {
 
-        return ResponseEntity.ok(orderService.getAllOrders());
+        return ResponseEntity.ok(
+                orderService.getAllOrders()
+        );
 
     }
 
@@ -42,11 +64,14 @@ public class OrderController {
     // Delete Single Order
     // ===============================
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOrder(@PathVariable Long id) {
+    public ResponseEntity<String> deleteOrder(
+            @PathVariable Long id) {
 
         orderService.deleteOrder(id);
 
-        return ResponseEntity.ok("Order Deleted Successfully");
+        return ResponseEntity.ok(
+                "Order Deleted Successfully"
+        );
     }
 
 
@@ -58,7 +83,9 @@ public class OrderController {
 
         orderService.deleteAllOrders();
 
-        return ResponseEntity.ok("All Orders Removed Successfully");
+        return ResponseEntity.ok(
+                "All Orders Removed Successfully"
+        );
     }
 
 }

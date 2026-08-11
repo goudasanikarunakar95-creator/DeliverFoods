@@ -13,6 +13,7 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
+
     // =====================================
     // Welcome Email (OLD FEATURE)
     // =====================================
@@ -40,6 +41,7 @@ public class EmailService {
         mailSender.send(message);
     }
 
+
     // =====================================
     // Order Confirmation Mail to User
     // =====================================
@@ -59,11 +61,13 @@ public class EmailService {
                 "Order Details:\n\n" +
                 orderDetails +
                 "\n\nThank you for ordering with Deliver Foods ❤️\n\n" +
-                "Regards,\nDeliver Foods Team"
+                "Regards,\n" +
+                "Deliver Foods Team"
         );
 
         mailSender.send(message);
     }
+
 
     // =====================================
     // Admin Order Notification
@@ -92,10 +96,14 @@ public class EmailService {
         mailSender.send(message);
     }
 
+
     // =====================================
     // OLD METHOD SUPPORT (OrderService)
     // =====================================
-    public void sendOrderSuccessMail(User user, String items, double grandTotal) {
+    public void sendOrderSuccessMail(
+            User user,
+            String items,
+            double grandTotal) {
 
         String orderDetails =
                 items +
@@ -105,10 +113,14 @@ public class EmailService {
         sendOrderConfirmation(user, orderDetails);
     }
 
+
     // =====================================
     // OLD METHOD SUPPORT (OrderService)
     // =====================================
-    public void sendAdminOrderMail(User user, String items, double grandTotal) {
+    public void sendAdminOrderMail(
+            User user,
+            String items,
+            double grandTotal) {
 
         String orderDetails =
                 items +

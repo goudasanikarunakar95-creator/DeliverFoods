@@ -47,6 +47,11 @@ public class OrderService {
 
         StringBuilder items = new StringBuilder();
 
+
+        // ======================================
+        // SAVE ORDERS
+        // ======================================
+
         for (Cart cart : cartItems) {
 
             Order order = new Order();
@@ -56,17 +61,20 @@ public class OrderService {
             order.setFood(cart.getFood());
             order.setQuantity(cart.getQuantity());
 
-            double total = cart.getFood().getPrice() * cart.getQuantity();
+            double total =
+                    cart.getFood().getPrice() * cart.getQuantity();
 
             order.setTotalPrice(total);
             order.setOrderDate(LocalDateTime.now());
 
-            // ===============================
+            // ======================================
             // NEW FEATURES
-            // ===============================
+            // ======================================
+
             order.setPaymentMode("Cash On Delivery");
             order.setOrderStatus("Pending");
 
+            // Save Order
             orderRepository.save(order);
 
             grandTotal += total;
@@ -81,30 +89,84 @@ public class OrderService {
 
 
         // ======================================
-        // OLD EMAIL FEATURES (UNCHANGED)
+        // SEND USER EMAIL
+        // Email failure should NOT cancel order
         // ======================================
 
-        emailService.sendOrderSuccessMail(
-                user,
-                items.toString(),
-                grandTotal
-        );
+        try {
 
-        emailService.sendAdminOrderMail(
-                user,
-                items.toString(),
-                grandTotal
-        );
+            emailService.sendOrderSuccessMail(
+                    user,
+                    items.toString(),
+                    grandTotal
+            );
+
+            System.out.println(
+                    "User order email sent successfully."
+            );
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "WARNING: User order email failed: "
+                    + e.getMessage()
+            );
+
+        }
 
 
         // ======================================
-        // Clear Cart
+        // SEND ADMIN EMAIL
+        // Email failure should NOT cancel order
         // ======================================
 
-        cartRepository.deleteAll(cartItems);
+        try {
+
+            emailService.sendAdminOrderMail(
+                    user,
+                    items.toString(),
+                    grandTotal
+            );
+
+            System.out.println(
+                    "Admin order email sent successfully."
+            );
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "WARNING: Admin order email failed: "
+                    + e.getMessage()
+            );
+
+        }
 
 
-        // Return Total (Bill Generation)
+        // ======================================
+        // CLEAR CART
+        // ======================================
+
+        try {
+
+            cartRepository.deleteAll(cartItems);
+
+            System.out.println(
+                    "Cart cleared successfully."
+            );
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "WARNING: Cart clearing failed: "
+                    + e.getMessage()
+            );
+
+        }
+
+
+        // ======================================
+        // Return Total
+        // ======================================
 
         return grandTotal;
     }
