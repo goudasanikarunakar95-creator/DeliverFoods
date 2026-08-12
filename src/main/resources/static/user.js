@@ -7,6 +7,168 @@ if (sessionStorage.getItem("userLoggedIn") !== "true") {
 
 
 // ===============================
+// Show Success Toast
+// ===============================
+function showSuccessToast(message) {
+
+    // Remove existing toast if already present
+    const existingToast = document.getElementById("successToast");
+
+    if (existingToast) {
+        existingToast.remove();
+    }
+
+
+    // Create Toast
+    const toast = document.createElement("div");
+
+    toast.id = "successToast";
+
+    toast.innerHTML = `
+        <div class="toast-icon">✓</div>
+
+        <div class="toast-message">
+            ${message}
+        </div>
+    `;
+
+
+    // ===============================
+    // Toast Style
+    // ===============================
+    toast.style.position = "fixed";
+    toast.style.top = "30px";
+    toast.style.right = "30px";
+
+    toast.style.display = "flex";
+    toast.style.alignItems = "center";
+
+    toast.style.gap = "12px";
+
+    toast.style.padding = "14px 22px";
+
+    toast.style.background = "#ffffff";
+
+    toast.style.color = "#222";
+
+    toast.style.borderRadius = "12px";
+
+    toast.style.boxShadow =
+        "0 8px 25px rgba(0,0,0,0.25)";
+
+    toast.style.fontSize = "16px";
+
+    toast.style.fontWeight = "600";
+
+    toast.style.zIndex = "99999";
+
+    toast.style.minWidth = "250px";
+
+    toast.style.borderLeft =
+        "5px solid #22c55e";
+
+    toast.style.animation =
+        "slideInToast 0.35s ease";
+
+
+    // ===============================
+    // Green Tick Style
+    // ===============================
+    const icon = toast.querySelector(".toast-icon");
+
+    icon.style.width = "28px";
+    icon.style.height = "28px";
+
+    icon.style.borderRadius = "50%";
+
+    icon.style.background = "#22c55e";
+
+    icon.style.color = "#ffffff";
+
+    icon.style.display = "flex";
+
+    icon.style.alignItems = "center";
+
+    icon.style.justifyContent = "center";
+
+    icon.style.fontSize = "18px";
+
+    icon.style.fontWeight = "bold";
+
+
+    // ===============================
+    // Add Toast To Page
+    // ===============================
+    document.body.appendChild(toast);
+
+
+    // ===============================
+    // Auto Remove Toast
+    // ===============================
+    setTimeout(() => {
+
+        toast.style.animation =
+            "slideOutToast 0.35s ease";
+
+        setTimeout(() => {
+
+            if (toast) {
+                toast.remove();
+            }
+
+        }, 350);
+
+    }, 2500);
+}
+
+
+// ===============================
+// Toast Animation
+// ===============================
+if (!document.getElementById("toastAnimationStyle")) {
+
+    const style = document.createElement("style");
+
+    style.id = "toastAnimationStyle";
+
+    style.innerHTML = `
+
+        @keyframes slideInToast {
+
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+        }
+
+
+        @keyframes slideOutToast {
+
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+        }
+
+    `;
+
+    document.head.appendChild(style);
+}
+
+
+// ===============================
 // Load Foods
 // ===============================
 function loadFoods() {
@@ -24,57 +186,70 @@ function loadFoods() {
 
         .then(data => {
 
-            const container = document.getElementById("foodContainer");
+            const container =
+                document.getElementById("foodContainer");
+
 
             if (!container) {
-                console.error("foodContainer not found");
+
+                console.error(
+                    "foodContainer not found"
+                );
+
                 return;
             }
 
+
             container.innerHTML = "";
+
 
             // ===============================
             // Search Text
             // ===============================
-            const searchInput = document.getElementById("searchFood");
+            const searchInput =
+                document.getElementById("searchFood");
+
 
             const searchText = searchInput
-                ? searchInput.value.toLowerCase().trim()
+                ? searchInput.value
+                    .toLowerCase()
+                    .trim()
                 : "";
 
 
             // ===============================
             // Filter Foods
             // ===============================
-            const filteredFoods = data.filter(food => {
+            const filteredFoods =
+                data.filter(food => {
 
-                return (
+                    return (
 
-                    (food.foodName || "")
-                        .toLowerCase()
-                        .includes(searchText)
+                        (food.foodName || "")
+                            .toLowerCase()
+                            .includes(searchText)
 
-                    ||
+                        ||
 
-                    (food.hotelName || "")
-                        .toLowerCase()
-                        .includes(searchText)
+                        (food.hotelName || "")
+                            .toLowerCase()
+                            .includes(searchText)
 
-                    ||
+                        ||
 
-                    (food.city || "")
-                        .toLowerCase()
-                        .includes(searchText)
+                        (food.city || "")
+                            .toLowerCase()
+                            .includes(searchText)
 
-                    ||
+                        ||
 
-                    (food.category || "")
-                        .toLowerCase()
-                        .includes(searchText)
+                        (food.category || "")
+                            .toLowerCase()
+                            .includes(searchText)
 
-                );
+                    );
 
-            });
+                });
 
 
             // ===============================
@@ -83,7 +258,12 @@ function loadFoods() {
             if (filteredFoods.length === 0) {
 
                 container.innerHTML = `
-                    <h2 style="text-align:center;color:#ff5722;">
+                    <h2
+                        style="
+                            text-align:center;
+                            color:#ff5722;
+                        "
+                    >
                         ❌ No Food Found
                     </h2>
                 `;
@@ -98,12 +278,20 @@ function loadFoods() {
             filteredFoods.forEach(food => {
 
                 const image =
+
                     food.imageUrl &&
                     food.imageUrl.trim() !== ""
 
-                    ? `<img src="${food.imageUrl}" alt="${food.foodName}">`
+                    ?
 
-                    : "";
+                    `<img
+                        src="${food.imageUrl}"
+                        alt="${food.foodName}"
+                    >`
+
+                    :
+
+                    "";
 
 
                 container.innerHTML += `
@@ -112,48 +300,66 @@ function loadFoods() {
 
                         ${image}
 
-                        <h2>${food.foodName}</h2>
+
+                        <h2>
+                            ${food.foodName}
+                        </h2>
+
 
                         <p>
                             <b>🏨 Hotel:</b>
                             ${food.hotelName}
                         </p>
 
+
                         <p>
                             <b>📍 City:</b>
                             ${food.city}
                         </p>
+
 
                         <p>
                             <b>🍴 Category:</b>
                             ${food.category}
                         </p>
 
+
                         <p>
                             <b>🥣 Quantity:</b>
                             ${food.quantity}
                         </p>
 
-                        <h3>₹${food.price}</h3>
 
-                        <button onclick="addToCart(${food.id})">
+                        <h3>
+                            ₹${food.price}
+                        </h3>
+
+
+                        <button
+                            onclick="addToCart(${food.id})"
+                        >
                             ➕ Add
                         </button>
 
                     </div>
 
                 `;
+
             });
 
         })
 
         .catch(error => {
 
-            console.error("Food Loading Error:", error);
+            console.error(
+                "Food Loading Error:",
+                error
+            );
 
             alert("❌ Unable to Load Foods");
 
         });
+
 }
 
 
@@ -162,13 +368,16 @@ function loadFoods() {
 // ===============================
 function addToCart(foodId) {
 
-    const userId = sessionStorage.getItem("userId");
+    const userId =
+        sessionStorage.getItem("userId");
+
 
     if (!userId) {
 
         alert("❌ Please login again.");
 
-        window.location.href = "login.html";
+        window.location.href =
+            "login.html";
 
         return;
     }
@@ -180,7 +389,8 @@ function addToCart(foodId) {
 
         headers: {
 
-            "Content-Type": "application/json"
+            "Content-Type":
+                "application/json"
 
         },
 
@@ -198,7 +408,9 @@ function addToCart(foodId) {
 
             if (!response.ok) {
 
-                throw new Error("Unable to Add Food");
+                throw new Error(
+                    "Unable to Add Food"
+                );
 
             }
 
@@ -208,17 +420,28 @@ function addToCart(foodId) {
 
         .then(() => {
 
-            alert("✅ Food Added Successfully");
+            // =================================
+            // NEW SUCCESS TOAST
+            // No alert
+            // No Undo button
+            // =================================
+            showSuccessToast(
+                "Food Added Successfully"
+            );
 
         })
 
         .catch(error => {
 
-            console.error("Cart Error:", error);
+            console.error(
+                "Cart Error:",
+                error
+            );
 
             alert("❌ Failed to Add Food");
 
         });
+
 }
 
 
@@ -227,19 +450,34 @@ function addToCart(foodId) {
 // ===============================
 function logout() {
 
-    if (confirm("Are you sure you want to logout?")) {
+    if (
+        confirm(
+            "Are you sure you want to logout?"
+        )
+    ) {
 
-        sessionStorage.removeItem("userLoggedIn");
+        sessionStorage.removeItem(
+            "userLoggedIn"
+        );
 
-        sessionStorage.removeItem("userId");
+        sessionStorage.removeItem(
+            "userId"
+        );
 
-        sessionStorage.removeItem("userName");
+        sessionStorage.removeItem(
+            "userName"
+        );
 
-        sessionStorage.removeItem("userEmail");
+        sessionStorage.removeItem(
+            "userEmail"
+        );
 
-        window.location.href = "login.html";
+
+        window.location.href =
+            "login.html";
 
     }
+
 }
 
 
@@ -249,12 +487,16 @@ function logout() {
 window.onload = function () {
 
     const userName =
-        sessionStorage.getItem("userName");
+        sessionStorage.getItem(
+            "userName"
+        );
 
 
     if (userName) {
 
-        console.log("Welcome " + userName);
+        console.log(
+            "Welcome " + userName
+        );
 
     }
 
@@ -263,16 +505,21 @@ window.onload = function () {
     // Search Event
     // ===============================
     const searchFood =
-        document.getElementById("searchFood");
+        document.getElementById(
+            "searchFood"
+        );
 
 
     if (searchFood) {
 
-        searchFood.addEventListener("keyup", function () {
+        searchFood.addEventListener(
+            "keyup",
+            function () {
 
-            loadFoods();
+                loadFoods();
 
-        });
+            }
+        );
 
     }
 
@@ -288,4 +535,7 @@ window.onload = function () {
 // ===============================
 // Auto Refresh
 // ===============================
-setInterval(loadFoods, 30000);
+setInterval(
+    loadFoods,
+    30000
+);

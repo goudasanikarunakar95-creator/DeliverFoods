@@ -1,706 +1,824 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-body{
 
-    min-height:100vh;
+body {
 
-    background:#0f172a;
+    min-height: 100vh;
+
+    background: #0f172a;
 
     background-image:
-    radial-gradient(circle at top right,#ff6b3525,transparent 30%),
-    radial-gradient(circle at bottom left,#2563eb20,transparent 35%);
+        radial-gradient(circle at top right, #ff6b3525, transparent 30%),
+        radial-gradient(circle at bottom left, #2563eb20, transparent 35%);
 
-    color:#fff;
+    color: #fff;
+}
+
+
+.container {
+
+    width: 94%;
+
+    margin: 30px auto;
+}
+
+
+/*==============================*
+* HEADER
+*==============================*/
+
+.header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 22px 30px;
+
+    background: #111827;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    border-radius: 18px;
+
+    box-shadow: 0 10px 35px rgba(0,0,0,.35);
+
+    margin-bottom: 30px;
+
+    animation: slideDown .8s ease;
+
+    transition: .3s;
+}
+
+
+.header h1 {
+
+    color: #ff7b29;
+
+    font-size: 34px;
+
+    font-weight: 700;
+
+    letter-spacing: .5px;
+}
+
+
+.header:hover {
+
+    border-color: #ff7b29;
+}
+
+
+/*==============================*
+* NAV BUTTONS
+*==============================*/
+
+.nav-buttons {
+
+    display: flex;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+
+.logout-btn {
+
+    background: #1f2937;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px 20px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    transition: .3s;
+}
+
+
+.logout-btn:hover {
+
+    background: #ff6b35;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 20px rgba(255,123,41,.35);
+}
+
+
+/*==============================*
+* WELCOME
+*==============================*/
+
+.welcome {
+
+    background: #111827;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-bottom: 30px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+
+    animation: fadeIn .9s ease;
+
+    transition: .3s;
+}
+
+
+.welcome:hover {
+
+    border-color: #ff7b29;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 15px 35px rgba(255,123,41,.20);
+}
+
+
+.welcome h2 {
+
+    font-size: 30px;
+
+    margin-bottom: 8px;
+}
+
+
+.welcome p {
+
+    color: #b8c0cc;
+
+    font-size: 15px;
+}
+
+
+#userName {
+
+    color: #ff7b29;
+
+    font-weight: 700;
+}
+
+
+/*==============================*
+* SEARCH
+*==============================*/
+
+.search-box {
+
+    margin: 25px 0;
+}
+
+
+.search-box input {
+
+    width: 100%;
+
+    padding: 16px 20px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+
+    background: #111827;
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    transition: .3s;
+}
+
+
+.search-box input:focus {
+
+    border-color: #ff7b29;
+}
+
+
+.search-box input:hover {
+
+    border-color: #ff7b29;
+}
+
+
+.search-box input::placeholder {
+
+    color: #9ca3af;
+}
+
+
+/*==============================*
+* TITLE
+*==============================*/
+
+.title {
+
+    margin-bottom: 22px;
+
+    font-size: 28px;
+
+    color: #fff;
+}
+
+
+/*==============================*
+* FOOD GRID
+*==============================*/
+
+.food-container {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 25px;
+}
+
+
+/*====================================*
+* FOOD CARD
+*====================================*/
+
+.food-card {
+
+    background: #111827;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    transition: .35s;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,.35);
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding-bottom: 20px;
+
+    cursor: pointer;
+}
+
+
+.food-card:hover {
+
+    transform: translateY(-10px);
+
+    border-color: #ff7b29;
+
+    background: #172033;
+
+    box-shadow:
+        0 18px 45px rgba(255,123,41,.25);
+}
+
+
+/*====================================*
+* FOOD CARD IMAGE
+*====================================*/
+
+.food-card img {
+
+    width: 100%;
+
+    height: 220px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/*====================================*
+* CARD CONTENT
+*====================================*/
+
+.food-card h2 {
+
+    color: #fff;
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    padding: 18px 18px 8px;
+
+    transition: .3s;
+}
+
+
+.food-card:hover h2 {
+
+    color: #ff7b29;
+}
+
+
+.food-card p {
+
+    padding: 5px 18px;
+
+    color: #d1d5db;
+
+    font-size: 15px;
+
+    line-height: 24px;
+
+    transition: .3s;
+}
+
+
+.food-card p b {
+
+    color: #ffffff;
+}
+
+
+.food-card:hover p {
+
+    color: #ffffff;
+}
+
+
+/*====================================*
+* PRICE
+*====================================*/
+
+.food-card h3 {
+
+    padding: 12px 18px;
+
+    margin-top: auto;
+
+    margin-bottom: 10px;
+
+    color: #22c55e;
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    transition: .3s;
+}
+
+
+.food-card:hover h3 {
+
+    color: #16a34a;
+}
+
+
+/*====================================*
+* ADD BUTTON
+*====================================*/
+
+.food-card button {
+
+    margin-top: auto;
+
+    width: 88%;
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    margin-bottom: 18px;
+
+    display: block;
+
+    border: none;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7b29,
+            #ff4d00
+        );
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+
+.food-card button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(255,123,41,.45);
+}
+
+
+.food-card button:active {
+
+    transform: scale(.97);
+}
+
+
+/*====================================*
+* SUCCESS TOAST
+*====================================*/
+
+#successToast {
+
+    position: fixed !important;
+
+    top: 30px !important;
+
+    right: 30px !important;
+
+    z-index: 99999 !important;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 250px;
+
+    max-width: 360px;
+
+    padding: 14px 22px;
+
+    background: #ffffff;
+
+    color: #222222;
+
+    border-radius: 12px;
+
+    border-left: 5px solid #22c55e;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.25);
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+/*====================================*
+* SUCCESS TOAST ICON
+*====================================*/
+
+#successToast .toast-icon {
+
+    width: 28px;
+
+    height: 28px;
+
+    min-width: 28px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+
+/*====================================*
+* SUCCESS TOAST MESSAGE
+*====================================*/
+
+#successToast .toast-message {
+
+    color: #222222;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+
+/*====================================*
+* TOAST MOBILE
+*====================================*/
+
+@media(max-width:480px) {
+
+    #successToast {
+
+        top: 20px !important;
+
+        right: 15px !important;
+
+        left: 15px !important;
+
+        width: auto;
+
+        min-width: unset;
+
+        max-width: none;
+
+        padding: 13px 17px;
+    }
+
+    #successToast .toast-message {
+
+        font-size: 14px;
+    }
 
 }
 
-.container{
 
-    width:94%;
+/*====================================*
+* ANIMATIONS
+*====================================*/
 
-    margin:30px auto;
+@keyframes slideDown {
 
-}
+    from {
 
-/*==============================
-HEADER
-==============================*/
+        opacity: 0;
 
-.header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:22px 30px;
-
-    background:#111827;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:18px;
-
-    box-shadow:0 10px 35px rgba(0,0,0,.35);
-
-    margin-bottom:30px;
-
-    animation:slideDown .8s ease;
-
-}
-
-.header h1{
-
-    color:#ff7b29;
-
-    font-size:34px;
-
-    font-weight:700;
-
-    letter-spacing:.5px;
-
-}
-
-.header:hover{
-
-    border-color:#ff7b29;
-
-}
-
-/*==============================
-NAV BUTTONS
-==============================*/
-
-.nav-buttons{
-
-    display:flex;
-
-    gap:15px;
-
-    flex-wrap:wrap;
-
-}
-
-.logout-btn{
-
-    background:#1f2937;
-
-    color:white;
-
-    border:none;
-
-    padding:12px 20px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    font-size:15px;
-
-    font-weight:600;
-
-    transition:.3s;
-
-}
-
-.logout-btn:hover{
-
-    background:#ff6b35;
-
-    transform:translateY(-3px);
-
-    box-shadow:0 8px 20px rgba(255,123,41,.35);
-
-}
-
-/*==============================
-WELCOME
-==============================*/
-
-.welcome{
-
-    background:#111827;
-
-    border-radius:18px;
-
-    padding:25px;
-
-    margin-bottom:30px;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-
-    animation:fadeIn .9s ease;
-
-}
-
-.welcome:hover{
-
-    border-color:#ff7b29;
-
-}
-
-.welcome h2{
-
-    font-size:30px;
-
-    margin-bottom:8px;
-
-}
-
-.welcome p{
-
-    color:#b8c0cc;
-
-    font-size:15px;
-
-}
-
-#userName{
-
-    color:#ff7b29;
-
-    font-weight:700;
-
-}
-
-/*==============================
-SEARCH
-==============================*/
-
-.search-box{
-
-    margin:25px 0;
-
-}
-
-.search-box input{
-
-    width:100%;
-
-    padding:16px 20px;
-
-    border:none;
-
-    outline:none;
-
-    border-radius:12px;
-
-    font-size:16px;
-
-    background:#111827;
-
-    color:white;
-
-    border:1px solid rgba(255,255,255,.08);
-
-}
-
-.search-box input:focus{
-
-    border-color:#ff7b29;
-
-}
-
-/*==============================
-TITLE
-==============================*/
-
-.title{
-
-    margin-bottom:22px;
-
-    font-size:28px;
-
-    color:#fff;
-
-}
-
-/*==============================
-FOOD GRID
-==============================*/
-
-.food-container{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
-    gap:25px;
-
-}
-/*====================================
-FOOD CARD
-====================================*/
-
-.food-card{
-    background:#111827;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:20px;
-    overflow:hidden;
-    transition:.35s;
-    box-shadow:0 12px 30px rgba(0,0,0,.35);
-    position:relative;
-
-    display:flex;
-    flex-direction:column;
-    padding-bottom:20px;
-}
-
-.food-card:hover{
-
-    transform:translateY(-10px);
-
-    border-color:#ff7b29;
-
-    background:#172033;
-
-    box-shadow:0 18px 45px rgba(255,123,41,.25);
-
-}
-/*====================================
-CARD CONTENT
-====================================*/
-
-.food-card h2{
-
-    color:#fff;
-
-    font-size:24px;
-
-    font-weight:700;
-
-    padding:18px 18px 8px;
-
-}
-
-.food-card p{
-
-    padding:5px 18px;
-
-    color:#d1d5db;
-
-    font-size:15px;
-
-    line-height:24px;
-
-}
-
-.food-card p b{
-
-    color:#ffffff;
-
-}
-
-/*====================================
-PRICE
-====================================*/
-
-.food-card h3{
-
-    padding:12px 18px;
-
-    margin-top:auto;
-
-    margin-bottom:10px;
-
-    color:#22c55e;
-
-    font-size:32px;
-
-    font-weight:700;
-
-}
-/*====================================
-ADD BUTTON
-====================================*/
-
-.food-card button{
-
-    margin-top:auto;
-
-    width:88%;
-    margin-left:auto;
-    margin-right:auto;
-    margin-bottom:18px;
-
-    display:block;
-
-    border:none;
-    padding:14px;
-
-    border-radius:12px;
-
-    background:linear-gradient(135deg,#ff7b29,#ff4d00);
-
-    color:white;
-
-    font-size:17px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-.food-card button:hover{
-
-    transform:translateY(-3px);
-
-    box-shadow:0 10px 25px rgba(255,123,41,.45);
-
-}
-
-.food-card button:active{
-
-    transform:scale(.97);
-
-}
-
-/*====================================
-ANIMATIONS
-====================================*/
-
-@keyframes slideDown{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(-35px);
+        transform: translateY(-35px);
 
     }
 
-    to{
+    to {
 
-        opacity:1;
+        opacity: 1;
 
-        transform:translateY(0);
-
-    }
-
-}
-
-@keyframes fadeIn{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(25px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
+        transform: translateY(0);
 
     }
 
 }
 
-@keyframes cardFade{
 
-    from{
+@keyframes fadeIn {
 
-        opacity:0;
+    from {
 
-        transform:translateY(40px);
+        opacity: 0;
 
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
+        transform: translateY(25px);
 
     }
 
-}
+    to {
 
-/*====================================
-SCROLLBAR
-====================================*/
+        opacity: 1;
 
-::-webkit-scrollbar{
+        transform: translateY(0);
 
-    width:10px;
+    }
 
 }
 
-::-webkit-scrollbar-track{
 
-    background:#111827;
+@keyframes cardFade {
 
-}
+    from {
 
-::-webkit-scrollbar-thumb{
+        opacity: 0;
 
-    background:#ff7b29;
+        transform: translateY(40px);
 
-    border-radius:20px;
+    }
 
-}
+    to {
 
-::-webkit-scrollbar-thumb:hover{
+        opacity: 1;
 
-    background:#ff4d00;
+        transform: translateY(0);
 
-}
-
-/*====================================
-TABLET
-====================================*/
-
-@media(max-width:992px){
-
-.container{
-
-    width:95%;
+    }
 
 }
 
-.header{
 
-    flex-direction:column;
+/*====================================*
+* SCROLLBAR
+*====================================*/
 
-    gap:18px;
+::-webkit-scrollbar {
 
-    text-align:center;
+    width: 10px;
+}
+
+
+::-webkit-scrollbar-track {
+
+    background: #111827;
+}
+
+
+::-webkit-scrollbar-thumb {
+
+    background: #ff7b29;
+
+    border-radius: 20px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: #ff4d00;
+}
+
+
+/*====================================*
+* TABLET
+*====================================*/
+
+@media(max-width:992px) {
+
+    .container {
+
+        width: 95%;
+    }
+
+
+    .header {
+
+        flex-direction: column;
+
+        gap: 18px;
+
+        text-align: center;
+    }
+
+
+    .food-container {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
 
 }
 
-.food-container{
 
-    grid-template-columns:repeat(2,1fr);
+/*====================================*
+* MOBILE
+*====================================*/
 
-}
+@media(max-width:768px) {
 
-}
+    .container {
 
-/*====================================
-MOBILE
-====================================*/
+        width: 96%;
+    }
 
-@media(max-width:768px){
 
-.container{
+    .food-container {
 
-    width:96%;
+        grid-template-columns: 1fr;
+    }
 
-}
 
-.food-container{
+    .header {
 
-    grid-template-columns:1fr;
+        padding: 20px;
+    }
 
-}
 
-.header{
+    .header h1 {
 
-    padding:20px;
+        font-size: 26px;
+    }
 
-}
 
-.header h1{
+    .logout-btn {
 
-    font-size:26px;
+        width: 100%;
+    }
 
-}
 
-.logout-btn{
+    .welcome {
 
-    width:100%;
+        padding: 20px;
+    }
 
-}
 
-.welcome{
+    .welcome h2 {
 
-    padding:20px;
+        font-size: 24px;
+    }
 
-}
 
-.welcome h2{
+    .food-card h2 {
 
-    font-size:24px;
+        font-size: 21px;
+    }
 
-}
 
-.food-card h2{
+    .food-card h3 {
 
-    font-size:21px;
-
-}
-
-.food-card h3{
-
-    font-size:28px;
+        font-size: 28px;
+    }
 
 }
 
+
+/*====================================*
+* SMALL MOBILE
+*====================================*/
+
+@media(max-width:480px) {
+
+    .food-card p {
+
+        font-size: 13px;
+    }
+
+
+    .food-card button {
+
+        font-size: 15px;
+
+        padding: 12px;
+    }
+
+
+    .food-card img {
+
+        height: 190px;
+    }
+
 }
 
-@media(max-width:480px){
 
-.food-card p{
-
-    font-size:13px;
-
-}
-
-.food-card button{
-
-    font-size:15px;
-
-    padding:12px;
-
-}
-
-}
-/*====================================
-POPULAR BADGE
-REMOVED
-====================================*/
+/*====================================*
+* POPULAR BADGE
+* REMOVED
+*====================================*/
 
 /* Popular badge removed */
 
-/*====================================
-PREMIUM EFFECTS
-====================================*/
 
-.food-card{
-
-    cursor:pointer;
-
-}
-
-.food-card:hover{
-
-    background:#172033;
-
-}
-
-.food-card h2{
-
-    transition:.3s;
-
-}
-
-.food-card:hover h2{
-
-    color:#ff7b29;
-
-}
-
-.food-card h3{
-
-    transition:.3s;
-
-}
-
-.food-card:hover h3{
-
-    color:#16a34a;
-
-}
-
-.food-card p{
-
-    transition:.3s;
-
-}
-
-.food-card:hover p{
-
-    color:#ffffff;
-
-}
-
-/*====================================
-HEADER EFFECT
-====================================*/
-
-.header{
-
-    transition:.3s;
-
-}
-
-.header:hover{
-
-    border-color:#ff7b29;
-
-}
-
-/*====================================
-WELCOME EFFECT
-====================================*/
-
-.welcome{
-
-    transition:.3s;
-
-}
-
-.welcome:hover{
-
-    border-color:#ff7b29;
-
-    transform:translateY(-3px);
-
-    box-shadow:0 15px 35px rgba(255,123,41,.20);
-
-}
-
-/*====================================
-SEARCH EFFECT
-====================================*/
-
-.search-box input{
-
-    transition:.3s;
-
-}
-
-.search-box input:hover{
-
-    border-color:#ff7b29;
-
-}
-
-.search-box input::placeholder{
-
-    color:#9ca3af;
-
-}
-
-/*====================================
-SMOOTH TRANSITIONS
-====================================*/
+/*====================================*
+* PREMIUM EFFECTS
+*====================================*/
 
 button,
 input,
 .food-card,
 .header,
-.welcome{
+.welcome {
 
-    transition:all .3s ease;
-
+    transition: all .3s ease;
 }
 
-/*====================================
-END
-====================================*/
+
+/*====================================*
+* END
+*====================================*/

@@ -1,103 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Deliver Foods | User Dashboard</title>
 
+
+    <!-- User CSS -->
     <link rel="stylesheet" href="user.css">
 
+
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
-    <!-- Navbar -->
+
+    <!-- ===============================
+         Navbar
+    ================================ -->
+
     <div class="header">
 
+
         <h1>
+
             <i class="fa-solid fa-burger"></i>
+
             Deliver Foods
+
         </h1>
+
 
         <div class="nav-buttons">
 
-            <button class="logout-btn"
-                    onclick="window.location.href='mydishes.html'">
+
+            <!-- My Dishes -->
+
+            <button
+                class="logout-btn"
+                onclick="window.location.href='mydishes.html'">
 
                 <i class="fa-solid fa-bowl-food"></i>
+
                 My Dishes
 
             </button>
 
-            <button class="logout-btn"
-                    onclick="logout()">
+
+            <!-- Logout -->
+
+            <button
+                class="logout-btn"
+                onclick="logout()">
 
                 <i class="fa-solid fa-right-from-bracket"></i>
+
                 Logout
 
             </button>
+
 
         </div>
 
     </div>
 
-    <!-- Welcome Card -->
+
+
+    <!-- ===============================
+         Welcome Card
+    ================================ -->
+
     <div class="welcome">
 
+
         <h2>
+
             👋 Welcome,
+
             <span id="userName">User</span>
+
         </h2>
 
+
         <p>
+
             Discover delicious meals from your favourite restaurants.
+
         </p>
+
 
     </div>
 
-    <!-- Search -->
+
+
+    <!-- ===============================
+         Search
+    ================================ -->
+
     <div class="search-box">
+
 
         <input
             type="text"
             placeholder="🔍 Search your favourite food..."
             id="searchFood">
 
+
     </div>
 
-    <!-- Title -->
+
+
+    <!-- ===============================
+         Available Foods Title
+    ================================ -->
+
     <h2 class="title">
 
         🍽 Available Foods
 
     </h2>
 
-    <!-- Food Cards -->
-    <div id="foodContainer" class="food-container">
+
+
+    <!-- ===============================
+         Food Cards
+    ================================ -->
+
+    <div
+        id="foodContainer"
+        class="food-container">
 
     </div>
 
+
 </div>
+
+
+
+<!-- ===============================
+     User JavaScript
+================================ -->
 
 <script src="user.js"></script>
 
+
+
+<!-- ===============================
+     Display User Name
+================================ -->
+
 <script>
 
-const name = sessionStorage.getItem("userName");
+    const name =
+        sessionStorage.getItem("userName");
 
-if(name){
-    document.getElementById("userName").innerText = name;
-}
+
+    if (name) {
+
+        const userNameElement =
+            document.getElementById("userName");
+
+
+        if (userNameElement) {
+
+            userNameElement.innerText = name;
+
+        }
+
+    }
 
 </script>
 
+
 </body>
+
 </html>
