@@ -18,79 +18,147 @@ public class UserService {
     @Autowired
     private EmailService emailService;
 
+
     // ==========================
     // Register User
     // ==========================
     public User saveUser(User user) {
 
-        Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+        Optional<User> existingUser =
+                userRepository.findByEmail(user.getEmail());
 
         if (existingUser.isPresent()) {
+
             throw new RuntimeException("Email already registered!");
+
         }
 
+
+        // ==========================
         // Default Role
-        if (user.getRole() == null || user.getRole().isEmpty()) {
+        // ==========================
+        if (user.getRole() == null ||
+            user.getRole().isEmpty()) {
+
             user.setRole("USER");
+
         }
 
-        // Save User
-        User savedUser = userRepository.save(user);
 
+        // ==========================
+        // Save User
+        // ==========================
+        User savedUser =
+                userRepository.save(user);
+
+
+        // ==========================
         // Send Welcome Email
-        //emailService.sendWelcomeEmail(savedUser);
+        // ==========================
+        try {
+
+            emailService.sendWelcomeEmail(savedUser);
+
+            System.out.println(
+                "✅ Welcome email sent to: "
+                + savedUser.getEmail()
+            );
+
+        } catch (Exception e) {
+
+            // Email failure should NOT
+            // cancel account creation
+
+            System.out.println(
+                "⚠ Welcome email failed: "
+                + e.getMessage()
+            );
+
+        }
+
 
         return savedUser;
     }
 
+
     // ==========================
     // Login User
     // ==========================
-    public Optional<User> loginUser(String email, String password) {
+    public Optional<User> loginUser(
+            String email,
+            String password) {
 
-        Optional<User> user = userRepository.findByEmail(email);
+        Optional<User> user =
+                userRepository.findByEmail(email);
 
-        if (user.isPresent() && user.get().getPassword().equals(password)) {
+
+        if (user.isPresent() &&
+            user.get().getPassword().equals(password)) {
+
             return user;
+
         }
+
 
         return Optional.empty();
     }
+
 
     // ==========================
     // Get All Users
     // ==========================
     public List<User> getAllUsers() {
+
         return userRepository.findAll();
+
     }
+
 
     // ==========================
     // Get User By Id
     // ==========================
     public Optional<User> getUserById(Long id) {
+
         return userRepository.findById(id);
+
     }
+
 
     // ==========================
     // Delete User
     // ==========================
     public void deleteUser(Long id) {
+
         userRepository.deleteById(id);
+
     }
+
+
     // ==========================
-// Forgot Password
-// ==========================
-public void resetPassword(String email, String newPassword) {
+    // Forgot Password
+    // ==========================
+    public void resetPassword(
+            String email,
+            String newPassword) {
 
-    Optional<User> user = userRepository.findByEmail(email);
 
-    if (user.isEmpty()) {
-        throw new RuntimeException("Email Not Found");
+        Optional<User> user =
+                userRepository.findByEmail(email);
+
+
+        if (user.isEmpty()) {
+
+            throw new RuntimeException(
+                "Email Not Found"
+            );
+
+        }
+
+
+        user.get().setPassword(newPassword);
+
+        userRepository.save(user.get());
+
     }
-
-    user.get().setPassword(newPassword);
-
-    userRepository.save(user.get());
-}
 
 }
