@@ -1,132 +1,248 @@
-// ===============================
-// Snackbar Function
-// ===============================
+// =====================================================
+// DELIVER FOODS - LOGIN.JS
+// =====================================================
 
-function showSnackbar(message, showUndo = false) {
 
-    // Remove existing snackbar
-    const oldSnackbar = document.getElementById("loginSnackbar");
+// =====================================================
+// SUCCESS SNACKBAR
+// =====================================================
+
+function showSuccessSnackbar(message) {
+
+    // Remove old snackbar if already exists
+    const oldSnackbar = document.getElementById("successSnackbar");
 
     if (oldSnackbar) {
         oldSnackbar.remove();
     }
 
-    // Create Snackbar
+
+    // Create snackbar
     const snackbar = document.createElement("div");
 
-    snackbar.id = "loginSnackbar";
+    snackbar.id = "successSnackbar";
 
     snackbar.innerHTML = `
-        <span>${message}</span>
-        ${
-            showUndo
-                ? `<button id="undoLogin">UNDO</button>`
-                : ""
-        }
+        <div class="snackbar-check">&#10003;</div>
+        <div class="snackbar-text">${message}</div>
     `;
 
-    // Snackbar Style
-    snackbar.style.position = "fixed";
-    snackbar.style.left = "50%";
-    snackbar.style.bottom = "30px";
-    snackbar.style.transform = "translateX(-50%)";
-    snackbar.style.background = "#323232";
-    snackbar.style.color = "#fff";
-    snackbar.style.padding = "14px 20px";
-    snackbar.style.borderRadius = "8px";
-    snackbar.style.display = "flex";
-    snackbar.style.alignItems = "center";
-    snackbar.style.gap = "25px";
-    snackbar.style.fontSize = "15px";
-    snackbar.style.fontFamily = "Arial, sans-serif";
-    snackbar.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
-    snackbar.style.zIndex = "99999";
-    snackbar.style.animation = "snackbarIn 0.3s ease";
 
+    // Add snackbar to page
     document.body.appendChild(snackbar);
 
-    // ===============================
-    // UNDO Button
-    // ===============================
 
-    if (showUndo) {
+    // Show snackbar
+    setTimeout(function () {
 
-        const undoButton =
-            document.getElementById("undoLogin");
+        snackbar.classList.add("show");
 
-        if (undoButton) {
+    }, 50);
 
-            undoButton.style.background = "transparent";
-            undoButton.style.border = "none";
-            undoButton.style.color = "#ff9800";
-            undoButton.style.fontWeight = "bold";
-            undoButton.style.cursor = "pointer";
-            undoButton.style.fontSize = "14px";
 
-            undoButton.addEventListener("click", function () {
+    // Hide snackbar after 2.5 seconds
+    setTimeout(function () {
 
-                sessionStorage.removeItem("userLoggedIn");
-                sessionStorage.removeItem("userId");
-                sessionStorage.removeItem("userName");
-                sessionStorage.removeItem("userEmail");
+        snackbar.classList.remove("show");
 
-                snackbar.remove();
+    }, 2500);
 
-                console.log("Login undone");
 
-            });
-
-        }
-
-    }
-
-    // ===============================
-    // Auto Remove Snackbar
-    // ===============================
-
+    // Remove snackbar completely
     setTimeout(function () {
 
         if (snackbar) {
             snackbar.remove();
         }
 
-    }, 3000);
+    }, 2900);
 }
 
 
-// ===============================
-// Snackbar Animation
-// ===============================
+// =====================================================
+// SNACKBAR CSS
+// Automatically added from JavaScript
+// =====================================================
 
-const snackbarStyle = document.createElement("style");
+(function addSnackbarStyles() {
 
-snackbarStyle.innerHTML = `
-
-@keyframes snackbarIn {
-
-    from {
-        opacity: 0;
-        transform: translate(-50%, 30px);
+    // Avoid adding CSS multiple times
+    if (document.getElementById("snackbarStyles")) {
+        return;
     }
 
-    to {
-        opacity: 1;
-        transform: translate(-50%, 0);
-    }
 
-}
+    const style = document.createElement("style");
 
-`;
+    style.id = "snackbarStyles";
 
-document.head.appendChild(snackbarStyle);
+    style.innerHTML = `
+
+        /* ==========================================
+           SUCCESS SNACKBAR
+        ========================================== */
+
+        #successSnackbar {
+
+            position: fixed;
+
+            left: 50%;
+
+            bottom: 30px;
+
+            transform:
+                translateX(-50%)
+                translateY(80px);
+
+            min-width: 280px;
+
+            padding: 14px 22px;
+
+            background: #323232;
+
+            color: #ffffff;
+
+            border-radius: 8px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 16px;
+
+            font-weight: 500;
+
+            box-shadow:
+                0 5px 18px rgba(0, 0, 0, 0.30);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease,
+                visibility 0.3s ease;
+
+            z-index: 999999;
+
+        }
 
 
-// ===============================
-// User Login
-// ===============================
+        /* ==========================================
+           SHOW SNACKBAR
+        ========================================== */
 
-const loginForm =
-    document.getElementById("loginForm");
+        #successSnackbar.show {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform:
+                translateX(-50%)
+                translateY(0);
+
+        }
+
+
+        /* ==========================================
+           GREEN CHECK MARK
+        ========================================== */
+
+        #successSnackbar .snackbar-check {
+
+            width: 24px;
+
+            height: 24px;
+
+            min-width: 24px;
+
+            background: #22c55e;
+
+            color: #ffffff;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            line-height: 1;
+
+        }
+
+
+        /* ==========================================
+           SNACKBAR TEXT
+        ========================================== */
+
+        #successSnackbar .snackbar-text {
+
+            color: #ffffff;
+
+            font-size: 16px;
+
+            font-weight: 500;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 500px) {
+
+            #successSnackbar {
+
+                min-width: 230px;
+
+                max-width: 85%;
+
+                padding: 13px 18px;
+
+                bottom: 20px;
+
+            }
+
+            #successSnackbar .snackbar-text {
+
+                font-size: 14px;
+
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(style);
+
+})();
+
+
+
+// =====================================================
+// USER LOGIN
+// =====================================================
+
+const loginForm = document.getElementById("loginForm");
+
 
 if (loginForm) {
 
@@ -134,25 +250,68 @@ if (loginForm) {
 
         e.preventDefault();
 
+
+        // ==========================================
+        // Get Login Details
+        // ==========================================
+
+        const emailElement =
+            document.getElementById("email");
+
+        const passwordElement =
+            document.getElementById("password");
+
+
+        const email =
+            emailElement.value.trim();
+
+        const password =
+            passwordElement.value;
+
+
+        // ==========================================
+        // Basic Validation
+        // ==========================================
+
+        if (!email || !password) {
+
+            alert("Please enter email and password.");
+
+            return;
+
+        }
+
+
+        // ==========================================
+        // Login Data
+        // ==========================================
+
         const loginData = {
 
-            email:
-                document
-                    .getElementById("email")
-                    .value
-                    .trim(),
+            email: email,
 
-            password:
-                document
-                    .getElementById("password")
-                    .value
+            password: password
 
         };
 
 
-        // ===============================
+        // ==========================================
+        // Disable Button
+        // ==========================================
+
+        const loginButton =
+            loginForm.querySelector("button");
+
+        if (loginButton) {
+
+            loginButton.disabled = true;
+
+        }
+
+
+        // ==========================================
         // Backend Login
-        // ===============================
+        // ==========================================
 
         fetch("/users/login", {
 
@@ -160,13 +319,11 @@ if (loginForm) {
 
             headers: {
 
-                "Content-Type":
-                    "application/json"
+                "Content-Type": "application/json"
 
             },
 
-            body:
-                JSON.stringify(loginData)
+            body: JSON.stringify(loginData)
 
         })
 
@@ -184,11 +341,22 @@ if (loginForm) {
 
         })
 
+
+        // ==========================================
+        // Login Success
+        // ==========================================
+
         .then(user => {
 
-            // ===============================
+            console.log(
+                "User Login Successful:",
+                user
+            );
+
+
+            // ======================================
             // Save User Details
-            // ===============================
+            // ======================================
 
             sessionStorage.setItem(
                 "userLoggedIn",
@@ -211,28 +379,31 @@ if (loginForm) {
             );
 
 
-            // ===============================
-            // Snackbar
-            // ===============================
+            // ======================================
+            // Show Snackbar
+            // ======================================
 
-            showSnackbar(
-                "✅ Login successful",
-                true
+            showSuccessSnackbar(
+                "Login successful"
             );
 
 
-            // ===============================
-            // Redirect
-            // ===============================
+            // ======================================
+            // Redirect after snackbar
+            // ======================================
 
             setTimeout(function () {
 
-                window.location.href =
-                    "user.html";
+                window.location.href = "user.html";
 
-            }, 1000);
+            }, 1800);
 
         })
+
+
+        // ==========================================
+        // Login Error
+        // ==========================================
 
         .catch(error => {
 
@@ -241,9 +412,18 @@ if (loginForm) {
                 error
             );
 
+
             alert(
                 "❌ Invalid Email or Password"
             );
+
+
+            // Enable button again
+            if (loginButton) {
+
+                loginButton.disabled = false;
+
+            }
 
         });
 
@@ -252,12 +432,14 @@ if (loginForm) {
 }
 
 
-// ===============================
-// Admin Login
-// ===============================
+
+// =====================================================
+// ADMIN LOGIN
+// =====================================================
 
 const adminLoginForm =
     document.getElementById("adminLoginForm");
+
 
 if (adminLoginForm) {
 
@@ -267,30 +449,42 @@ if (adminLoginForm) {
 
             e.preventDefault();
 
+
+            // ======================================
+            // Get Admin Credentials
+            // ======================================
+
+            const usernameElement =
+                document.getElementById(
+                    "adminUsername"
+                );
+
+            const passwordElement =
+                document.getElementById(
+                    "adminPassword"
+                );
+
+
             const username =
-                document
-                    .getElementById("adminUsername")
-                    .value
-                    .trim();
+                usernameElement.value.trim();
 
             const password =
-                document
-                    .getElementById("adminPassword")
-                    .value;
+                passwordElement.value;
 
 
-            // ===============================
-            // Admin Credentials
-            // ===============================
+            // ======================================
+            // Admin Login
+            // ======================================
 
             if (
                 username === "deliverfoods" &&
                 password === "food@2026"
             ) {
 
-                // ===============================
+
+                // ==================================
                 // Save Admin Login
-                // ===============================
+                // ==================================
 
                 sessionStorage.setItem(
                     "adminLoggedIn",
@@ -298,29 +492,33 @@ if (adminLoginForm) {
                 );
 
 
-                // ===============================
-                // Snackbar
-                // ===============================
+                // ==================================
+                // Show Snackbar
+                // ==================================
 
-                showSnackbar(
-                    "✅ Admin Login successful",
-                    true
+                showSuccessSnackbar(
+                    "Admin Login successful"
                 );
 
 
-                // ===============================
+                // ==================================
                 // Redirect
-                // ===============================
+                // ==================================
 
                 setTimeout(function () {
 
                     window.location.href =
                         "admin.html";
 
-                }, 1000);
+                }, 1800);
 
 
             } else {
+
+
+                // ==================================
+                // Invalid Admin Login
+                // ==================================
 
                 alert(
                     "❌ Invalid Admin Username or Password"
@@ -334,9 +532,10 @@ if (adminLoginForm) {
 }
 
 
-// ======================================
-// Forgot Password - Popup
-// ======================================
+
+// =====================================================
+// FORGOT PASSWORD - OPEN POPUP
+// =====================================================
 
 function openForgotPassword() {
 
@@ -344,6 +543,7 @@ function openForgotPassword() {
         document.getElementById(
             "forgotPasswordPopup"
         );
+
 
     if (popup) {
 
@@ -354,9 +554,10 @@ function openForgotPassword() {
 }
 
 
-// ======================================
-// Close Forgot Password
-// ======================================
+
+// =====================================================
+// FORGOT PASSWORD - CLOSE POPUP
+// =====================================================
 
 function closeForgotPassword() {
 
@@ -364,6 +565,7 @@ function closeForgotPassword() {
         document.getElementById(
             "forgotPasswordPopup"
         );
+
 
     if (popup) {
 
@@ -374,14 +576,16 @@ function closeForgotPassword() {
 }
 
 
-// ======================================
-// Reset Password
-// ======================================
+
+// =====================================================
+// FORGOT PASSWORD FORM
+// =====================================================
 
 const forgotPasswordForm =
     document.getElementById(
         "forgotPasswordForm"
     );
+
 
 if (forgotPasswordForm) {
 
@@ -392,26 +596,54 @@ if (forgotPasswordForm) {
             e.preventDefault();
 
 
+            // ======================================
+            // Get Values
+            // ======================================
+
+            const emailElement =
+                document.getElementById(
+                    "forgotEmail"
+                );
+
+            const newPasswordElement =
+                document.getElementById(
+                    "newPassword"
+                );
+
+            const confirmPasswordElement =
+                document.getElementById(
+                    "confirmPassword"
+                );
+
+
             const email =
-                document
-                    .getElementById("forgotEmail")
-                    .value
-                    .trim();
+                emailElement.value.trim();
 
             const newPassword =
-                document
-                    .getElementById("newPassword")
-                    .value;
+                newPasswordElement.value;
 
             const confirmPassword =
-                document
-                    .getElementById("confirmPassword")
-                    .value;
+                confirmPasswordElement.value;
 
 
-            // ===============================
-            // Check Password Match
-            // ===============================
+            // ======================================
+            // Email Validation
+            // ======================================
+
+            if (!email) {
+
+                alert(
+                    "❌ Please enter your email."
+                );
+
+                return;
+
+            }
+
+
+            // ======================================
+            // Password Match
+            // ======================================
 
             if (
                 newPassword !==
@@ -427,13 +659,11 @@ if (forgotPasswordForm) {
             }
 
 
-            // ===============================
-            // Check Password Length
-            // ===============================
+            // ======================================
+            // Password Length
+            // ======================================
 
-            if (
-                newPassword.length < 6
-            ) {
+            if (newPassword.length < 6) {
 
                 alert(
                     "❌ Password must contain at least 6 characters."
@@ -444,9 +674,9 @@ if (forgotPasswordForm) {
             }
 
 
-            // ===============================
+            // ======================================
             // Reset Password Data
-            // ===============================
+            // ======================================
 
             const resetData = {
 
@@ -457,9 +687,9 @@ if (forgotPasswordForm) {
             };
 
 
-            // ===============================
-            // Backend - Reset Password
-            // ===============================
+            // ======================================
+            // Backend Reset Password
+            // ======================================
 
             fetch(
                 "/users/forgot-password",
@@ -475,10 +705,17 @@ if (forgotPasswordForm) {
                     },
 
                     body:
-                        JSON.stringify(resetData)
+                        JSON.stringify(
+                            resetData
+                        )
 
                 }
             )
+
+
+            // ======================================
+            // Check Response
+            // ======================================
 
             .then(response => {
 
@@ -494,31 +731,38 @@ if (forgotPasswordForm) {
 
             })
 
+
+            // ======================================
+            // Reset Success
+            // ======================================
+
             .then(message => {
 
-                // ===============================
-                // Success Snackbar
-                // ===============================
-
-                showSnackbar(
-                    "✅ Password Reset Successfully"
+                console.log(
+                    "Password Reset:",
+                    message
                 );
 
 
-                // ===============================
-                // Close Popup
-                // ===============================
+                // Show Snackbar
+                showSuccessSnackbar(
+                    "Password reset successful"
+                );
 
+
+                // Close popup
                 closeForgotPassword();
 
 
-                // ===============================
-                // Clear Form
-                // ===============================
-
+                // Clear form
                 forgotPasswordForm.reset();
 
             })
+
+
+            // ======================================
+            // Reset Error
+            // ======================================
 
             .catch(error => {
 
@@ -526,6 +770,7 @@ if (forgotPasswordForm) {
                     "Password Reset Error:",
                     error
                 );
+
 
                 alert(
                     "❌ Email not found or password reset failed."
@@ -537,3 +782,32 @@ if (forgotPasswordForm) {
     );
 
 }
+
+
+
+// =====================================================
+// OPTIONAL: CLOSE FORGOT PASSWORD POPUP
+// WHEN CLICKING OUTSIDE
+// =====================================================
+
+window.addEventListener(
+    "click",
+    function (event) {
+
+        const popup =
+            document.getElementById(
+                "forgotPasswordPopup"
+            );
+
+
+        if (
+            popup &&
+            event.target === popup
+        ) {
+
+            closeForgotPassword();
+
+        }
+
+    }
+);
