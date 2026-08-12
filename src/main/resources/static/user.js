@@ -426,7 +426,7 @@ function addToCart(foodId) {
             // No Undo button
             // =================================
             showSuccessToast(
-                "Food Added Successfully"
+                 "Added"
             );
 
         })
