@@ -17,6 +17,7 @@ function loadMyDishes() {
 
     console.log("User ID :", userId);
 
+
     if (!userId) {
 
         alert("❌ User session expired. Please login again.");
@@ -46,12 +47,17 @@ function loadMyDishes() {
 
             console.log("Cart Data :", data);
 
+
             const container =
                 document.getElementById("dishesContainer");
+
 
             container.innerHTML = "";
 
 
+            // ===============================
+            // Empty Cart
+            // ===============================
             if (data.length === 0) {
 
                 container.innerHTML = `
@@ -77,6 +83,9 @@ function loadMyDishes() {
             }
 
 
+            // ===============================
+            // Display Dishes
+            // ===============================
             data.forEach(item => {
 
                 const total =
@@ -252,12 +261,8 @@ function decreaseQty(id) {
 // ===============================
 function removeDish(id) {
 
-    if (!confirm("Remove this dish?")) {
-
-        return;
-
-    }
-
+    // No confirmation popup
+    // Directly remove the dish
 
     fetch("/cart/" + id, {
 
@@ -279,6 +284,7 @@ function removeDish(id) {
 
     .then(() => {
 
+        // Reload dishes after successful removal
         loadMyDishes();
 
     })
@@ -323,6 +329,7 @@ function loadBill() {
 
     const userId = sessionStorage.getItem("userId");
 
+
     if (!userId) {
 
         alert("❌ User session expired.");
@@ -350,6 +357,7 @@ function loadBill() {
 
             const billItems =
                 document.getElementById("billItems");
+
 
             billItems.innerHTML = "";
 
