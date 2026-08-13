@@ -10,16 +10,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         e.preventDefault();
 
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value.trim();
+        const username =
+            document.getElementById("username").value.trim();
+
+        const password =
+            document.getElementById("password").value.trim();
+
 
         // Admin Credentials
         if (username === "deliverfoods" && password === "food@2026") {
 
             sessionStorage.setItem("adminLoggedIn", "true");
 
-            alert("✅ Admin Login Successful");
-
+            // Directly go to Admin Dashboard
             window.location.href = "admin.html";
 
         } else {
@@ -27,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("❌ Invalid Username or Password");
 
             document.getElementById("password").value = "";
+
             document.getElementById("password").focus();
 
         }

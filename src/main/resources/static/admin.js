@@ -250,26 +250,10 @@ function deleteFood(id) {
 // ======================================
 function logout() {
 
-    const ok = confirm(
-        "Do you want to logout?"
-    );
+    sessionStorage.removeItem("adminLoggedIn");
 
-    if (!ok) {
-        return;
-    }
-
-    sessionStorage.removeItem(
-        "adminLoggedIn"
-    );
-
-    alert(
-        "👋 Logged out successfully."
-    );
-
-    window.location.href =
-        "admin-login.html";
+    window.location.href = "admin-login.html";
 }
-
 
 // ======================================
 // Page Load
