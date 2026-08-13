@@ -928,12 +928,7 @@ function loadBill() {
 }
 
 
-// ===============================
-// Confirm Order
-// ===============================
-// ===============================
-// Confirm Order
-// ===============================
+
 // ===============================
 // Confirm Order
 // ===============================
@@ -954,7 +949,19 @@ function confirmOrder() {
     }
 
 
-    // Get current cart items first
+    // =========================================
+    // SHOW POPUP IMMEDIATELY
+    // =========================================
+
+    closeBill();
+
+    showOrderSuccessPopup();
+
+
+    // =========================================
+    // GET CART ITEMS IN BACKGROUND
+    // =========================================
+
     fetch("/cart/" + userId)
 
         .then(response => {
@@ -978,9 +985,9 @@ function confirmOrder() {
             }
 
 
-            // ===============================
-            // Place Order
-            // ===============================
+            // =========================================
+            // PLACE ORDER IN BACKGROUND
+            // =========================================
 
             return fetch("/orders/place/" + userId, {
 
@@ -1008,22 +1015,22 @@ function confirmOrder() {
                 );
 
 
-                // ===============================
-                // Remove Ordered Items
-                // ===============================
+                // =========================================
+                // REMOVE ORDERED ITEMS
+                // =========================================
 
                 return Promise.all(
 
-                    cartItems.map(item =>
+                    cartItems.map(item => {
 
-                        fetch(
+                        return fetch(
                             "/cart/" + item.id,
                             {
                                 method: "DELETE"
                             }
-                        )
+                        );
 
-                    )
+                    })
 
                 );
 
@@ -1033,17 +1040,11 @@ function confirmOrder() {
 
         .then(() => {
 
-            // Close bill
-            closeBill();
+            // =========================================
+            // REFRESH MY DISHES
+            // =========================================
 
-
-            // Reload My Dishes
-            // This will show empty cart
             loadMyDishes();
-
-
-            // Show custom success popup
-            showOrderSuccessPopup();
 
         })
 
@@ -1053,6 +1054,13 @@ function confirmOrder() {
                 "Order Error:",
                 error
             );
+
+
+            // =========================================
+            // ORDER FAILED
+            // =========================================
+
+            closeOrderSuccessPopup();
 
             alert(
                 "❌ Unable to Place Order"
