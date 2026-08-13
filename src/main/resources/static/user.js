@@ -449,35 +449,12 @@ function addToCart(foodId) {
 // Logout
 // ===============================
 function logout() {
+    sessionStorage.removeItem("userLoggedIn");
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("userName");
+    sessionStorage.removeItem("userEmail");
 
-    if (
-        confirm(
-            "Are you sure you want to logout?"
-        )
-    ) {
-
-        sessionStorage.removeItem(
-            "userLoggedIn"
-        );
-
-        sessionStorage.removeItem(
-            "userId"
-        );
-
-        sessionStorage.removeItem(
-            "userName"
-        );
-
-        sessionStorage.removeItem(
-            "userEmail"
-        );
-
-
-        window.location.href =
-            "login.html";
-
-    }
-
+    window.location.href = "login.html";
 }
 
 
