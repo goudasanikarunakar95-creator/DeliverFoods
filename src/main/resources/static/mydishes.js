@@ -948,6 +948,20 @@ function confirmOrder() {
     }
 
 
+    // =========================================
+    // CLOSE BILL IMMEDIATELY
+    // SHOW SUCCESS POPUP IMMEDIATELY
+    // =========================================
+
+    closeBill();
+
+    showOrderSuccessPopup();
+
+
+    // =========================================
+    // PLACE ORDER IN BACKGROUND
+    // =========================================
+
     fetch("/orders/place/" + userId, {
 
         method: "POST"
@@ -970,17 +984,8 @@ function confirmOrder() {
 
         console.log("Order Response:", message);
 
-
-        // =========================================
-        // OLD ALERT REMOVED
-        // CUSTOM SUCCESS POPUP ADDED
-        // =========================================
-
-        closeBill();
-
+        // Refresh dishes after order is completed
         loadMyDishes();
-
-        showOrderSuccessPopup();
 
     })
 
@@ -988,12 +993,14 @@ function confirmOrder() {
 
         console.error("Order Error:", error);
 
+        // Remove success popup if order actually failed
+        closeOrderSuccessPopup();
+
         alert("❌ Unable to Place Order");
 
     });
 
 }
-
 
 // ===============================
 // Back
