@@ -932,11 +932,13 @@ function loadBill() {
 // ===============================
 // Confirm Order
 // ===============================
+// ===============================
+// Confirm Order
+// ===============================
 function confirmOrder() {
 
     const userId =
         sessionStorage.getItem("userId");
-
 
     if (!userId) {
 
@@ -950,7 +952,9 @@ function confirmOrder() {
 
 
     // =========================================
-    // SHOW POPUP IMMEDIATELY
+    // CLOSE BILL IMMEDIATELY
+    // SHOW SUCCESS POPUP IMMEDIATELY
+    // CLEAR MY DISHES IMMEDIATELY
     // =========================================
 
     closeBill();
@@ -958,115 +962,129 @@ function confirmOrder() {
     showOrderSuccessPopup();
 
 
+    const container =
+        document.getElementById("dishesContainer");
+
+
+    if (container) {
+
+        container.innerHTML = `
+
+            <div class="empty-cart">
+
+                <i class="fa-solid fa-bowl-food"></i>
+
+                <h2>No Dishes Added</h2>
+
+                <p>Your food list is empty.</p>
+
+                <button onclick="goBack()">
+
+                    🍔 Order Now
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
     // =========================================
-    // GET CART ITEMS IN BACKGROUND
+    // PLACE ORDER IN BACKGROUND
     // =========================================
 
-    fetch("/cart/" + userId)
+    fetch("/orders/place/" + userId, {
 
-        .then(response => {
+        method: "POST"
 
-            if (!response.ok) {
+    })
 
-                throw new Error("Unable to load cart");
+    .then(response => {
 
-            }
+        if (!response.ok) {
 
-            return response.json();
+            throw new Error("Order Failed");
 
-        })
+        }
 
-        .then(cartItems => {
+        return response.text();
 
-            if (cartItems.length === 0) {
+    })
 
-                throw new Error("Cart is empty");
+    .then(message => {
 
-            }
+        console.log(
+            "Order Response:",
+            message
+        );
 
 
-            // =========================================
-            // PLACE ORDER IN BACKGROUND
-            // =========================================
+        // =========================================
+        // REMOVE CART ITEMS FROM BACKEND
+        // =========================================
 
-            return fetch("/orders/place/" + userId, {
-
-                method: "POST"
-
-            })
+        return fetch("/cart/" + userId)
 
             .then(response => {
 
                 if (!response.ok) {
 
-                    throw new Error("Order Failed");
+                    throw new Error("Unable to load cart");
 
                 }
 
-                return response.text();
+                return response.json();
 
             })
 
-            .then(message => {
-
-                console.log(
-                    "Order Response:",
-                    message
-                );
-
-
-                // =========================================
-                // REMOVE ORDERED ITEMS
-                // =========================================
+            .then(cartItems => {
 
                 return Promise.all(
 
-                    cartItems.map(item => {
+                    cartItems.map(item =>
 
-                        return fetch(
+                        fetch(
                             "/cart/" + item.id,
                             {
                                 method: "DELETE"
                             }
-                        );
+                        )
 
-                    })
+                    )
 
                 );
 
             });
 
-        })
+    })
 
-        .then(() => {
+    .then(() => {
 
-            // =========================================
-            // REFRESH MY DISHES
-            // =========================================
+        console.log(
+            "Order placed and cart cleared successfully."
+        );
 
-            loadMyDishes();
+    })
 
-        })
+    .catch(error => {
 
-        .catch(error => {
+        console.error(
+            "Order Error:",
+            error
+        );
 
-            console.error(
-                "Order Error:",
-                error
-            );
+        closeOrderSuccessPopup();
 
+        alert(
+            "❌ Unable to Place Order"
+        );
 
-            // =========================================
-            // ORDER FAILED
-            // =========================================
+        // Reload actual cart if order failed
+        loadMyDishes();
 
-            closeOrderSuccessPopup();
-
-            alert(
-                "❌ Unable to Place Order"
-            );
-
-        });
+    });
 
 }
 
